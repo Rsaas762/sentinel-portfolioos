@@ -136,10 +136,17 @@ export function ContactForm() {
         />
       </Field>
 
-      {/* Honeypot — visually hidden, not announced to users */}
-      <div aria-hidden className="absolute -left-[9999px]" >
+      {/* Honeypot — hidden from users & AT; display:none fields still submit,
+          so naive bots that fill every field get caught. */}
+      <div hidden aria-hidden>
         <label htmlFor="website">Leave this field empty</label>
-        <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <Button type="submit" disabled={status.kind === "submitting"}>
