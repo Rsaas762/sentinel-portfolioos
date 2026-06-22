@@ -186,6 +186,7 @@ export interface PortfolioRepo {
   listProjects(): Promise<Project[]>;
   listFeaturedProjects(): Promise<Project[]>;
   getProjectBySlug(slug: string): Promise<Project | null>;
+  getProjectById(id: string): Promise<Project | null>;
   listSkills(): Promise<Skill[]>;
   listExperience(): Promise<Experience[]>;
   listCertifications(): Promise<Certification[]>;

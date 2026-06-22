@@ -97,6 +97,10 @@ export class DemoRepo implements PortfolioRepo {
     return SEED_PROJECTS.find((p) => p.slug === slug) ?? null;
   }
 
+  async getProjectById(id: string): Promise<Project | null> {
+    return SEED_PROJECTS.find((p) => p.id === id) ?? null;
+  }
+
   async listSkills(): Promise<Skill[]> {
     return [...SEED_SKILLS];
   }

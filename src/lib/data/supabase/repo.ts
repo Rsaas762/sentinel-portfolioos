@@ -80,6 +80,24 @@ export class SupabaseRepo implements PortfolioRepo {
     return { ...(project as Project), sections: sections ?? [] };
   }
 
+  async getProjectById(id: string): Promise<Project | null> {
+    const supabase = await this.client();
+    const { data: project } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
+    if (!project) return null;
+
+    const { data: sections } = await supabase
+      .from("project_sections")
+      .select("*")
+      .eq("project_id", (project as Project).id)
+      .order("sort_order", { ascending: true });
+
+    return { ...(project as Project), sections: sections ?? [] };
+  }
+
   async listSkills(): Promise<Skill[]> {
     const supabase = await this.client();
     const { data } = await supabase
