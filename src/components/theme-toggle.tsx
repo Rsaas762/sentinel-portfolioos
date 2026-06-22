@@ -4,20 +4,30 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+/** Subscribe to the <html> `dark` class without an effect or hydration flash.
+ *  Server snapshot is `false`, matching the default render. */
+function useIsDark(): boolean {
+  return React.useSyncExternalStore(
+    (onChange) => {
+      const observer = new MutationObserver(onChange);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+      return () => observer.disconnect();
+    },
+    () => document.documentElement.classList.contains("dark"),
+    () => false,
+  );
+}
+
 /** Toggles `.dark` on <html> and persists the choice. Pairs with the
  *  no-flash bootstrap script in the root layout. */
 export function ThemeToggle({ className }: { className?: string }) {
-  const [mounted, setMounted] = React.useState(false);
-  const [dark, setDark] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-    setDark(document.documentElement.classList.contains("dark"));
-  }, []);
+  const dark = useIsDark();
 
   function toggle() {
     const next = !dark;
-    setDark(next);
     document.documentElement.classList.toggle("dark", next);
     try {
       localStorage.setItem("sentinel-theme", next ? "dark" : "light");
@@ -35,12 +45,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       className={className}
     >
-      {/* Render a stable icon until mounted to avoid hydration mismatch */}
-      {mounted && dark ? (
-        <Sun className="size-4" />
-      ) : (
-        <Moon className="size-4" />
-      )}
+      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
     </Button>
   );
 }

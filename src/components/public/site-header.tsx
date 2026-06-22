@@ -22,9 +22,13 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
-  React.useEffect(() => {
+  // Close the mobile menu on navigation, the React-recommended way:
+  // adjust state during render when a tracked value changes (no effect).
+  const [lastPath, setLastPath] = React.useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">

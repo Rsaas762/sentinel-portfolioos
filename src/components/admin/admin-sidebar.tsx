@@ -19,7 +19,12 @@ export function AdminSidebar({
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
 
-  React.useEffect(() => setOpen(false), [pathname]);
+  // Close the mobile nav on navigation without an effect (adjust on render).
+  const [lastPath, setLastPath] = React.useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   const nav = (
     <nav className="flex flex-1 flex-col gap-0.5 p-3">
