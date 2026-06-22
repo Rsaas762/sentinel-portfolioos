@@ -16,9 +16,8 @@ export default function AdminLoginPage() {
   const configured = isSupabaseConfigured();
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center px-4">
-      <div className="grid-backdrop pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-      <div className="relative w-full max-w-sm">
+    <div className="flex min-h-dvh items-center justify-center bg-muted/30 px-4">
+      <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
           <Logo size="lg" />
           <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-primary">

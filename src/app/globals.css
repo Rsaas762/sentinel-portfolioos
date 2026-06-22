@@ -4,12 +4,13 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Sentinel PortfolioOS design tokens.
-  Cybersecurity-inspired, professional, bright-leaning. Signal-cyan accent.
+  Sentinel PortfolioOS — TypeUI "Clean" design direction.
+  Minimal, SaaS-like: ample whitespace, legible type, a limited palette,
+  a calm professional blue accent, and tight (4/8px) radii on an 8pt grid.
   Light + dark themes via `.dark` class on <html>.
 */
 :root {
-  --background: 210 40% 99%;
+  --background: 0 0% 100%;
   --foreground: 222 47% 11%;
 
   --card: 0 0% 100%;
@@ -18,68 +19,69 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
 
-  --primary: 192 84% 34%;
+  /* Calm professional blue (#3B82F6) */
+  --primary: 217 91% 60%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 210 40% 96%;
+  --secondary: 220 14% 96%;
   --secondary-foreground: 222 47% 11%;
 
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 19% 42%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 43%;
 
-  --accent: 187 85% 94%;
-  --accent-foreground: 192 84% 24%;
+  --accent: 214 100% 97%;
+  --accent-foreground: 221 83% 45%;
 
   --destructive: 0 72% 48%;
   --destructive-foreground: 0 0% 100%;
 
-  --success: 158 64% 35%;
-  --warning: 35 92% 45%;
+  --success: 142 71% 38%;
+  --warning: 32 94% 40%;
 
-  --border: 214 32% 89%;
-  --input: 214 32% 89%;
-  --ring: 192 84% 34%;
+  --border: 220 13% 91%;
+  --input: 220 13% 89%;
+  --ring: 217 91% 60%;
 
-  --brand-cyan: 192 84% 40%;
-  --brand-emerald: 158 64% 42%;
+  /* Single tasteful accent for the logo "proof" spark */
+  --brand-emerald: 142 64% 40%;
 
-  --radius: 0.7rem;
+  /* Clean radii: 8px base, 6px md, 4px sm */
+  --radius: 0.5rem;
 }
 
 .dark {
-  --background: 222 47% 7%;
+  --background: 222 47% 9%;
   --foreground: 210 40% 96%;
 
-  --card: 222 44% 10%;
+  --card: 222 41% 12%;
   --card-foreground: 210 40% 96%;
 
-  --popover: 222 44% 9%;
+  --popover: 222 41% 11%;
   --popover-foreground: 210 40% 96%;
 
-  --primary: 188 92% 46%;
-  --primary-foreground: 222 47% 9%;
+  --primary: 213 94% 68%;
+  --primary-foreground: 222 47% 11%;
 
-  --secondary: 217 33% 16%;
+  --secondary: 217 33% 17%;
   --secondary-foreground: 210 40% 96%;
 
-  --muted: 217 33% 15%;
-  --muted-foreground: 215 20% 65%;
+  --muted: 217 33% 16%;
+  --muted-foreground: 215 18% 65%;
 
-  --accent: 192 60% 18%;
-  --accent-foreground: 188 92% 80%;
+  --accent: 217 50% 20%;
+  --accent-foreground: 213 94% 82%;
 
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 100%;
 
-  --success: 158 64% 50%;
-  --warning: 35 92% 58%;
+  --success: 142 64% 50%;
+  --warning: 32 94% 56%;
 
-  --border: 217 33% 20%;
-  --input: 217 33% 22%;
-  --ring: 188 92% 46%;
+  --border: 217 30% 22%;
+  --input: 217 30% 24%;
+  --ring: 213 94% 68%;
 
-  --brand-cyan: 188 92% 52%;
-  --brand-emerald: 158 64% 55%;
+  --brand-emerald: 142 64% 52%;
 }
 
 @theme inline {
@@ -104,11 +106,11 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --color-brand-cyan: hsl(var(--brand-cyan));
   --color-brand-emerald: hsl(var(--brand-emerald));
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-inconsolata), ui-monospace, "SF Mono", monospace;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -131,23 +133,26 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Clean typography: display font for headings, tightened tracking */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.011em;
+}
+
 ::selection {
-  background: hsl(var(--primary) / 0.2);
+  background: hsl(var(--primary) / 0.18);
 }
 
-/* Subtle security-grid backdrop */
-.grid-backdrop {
-  background-image:
-    linear-gradient(to right, hsl(var(--border) / 0.6) 1px, transparent 1px),
-    linear-gradient(to bottom, hsl(var(--border) / 0.6) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-/* Animated entrance */
+/* Subtle entrance — kept minimal */
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -156,7 +161,7 @@ body {
 }
 
 .animate-fade-up {
-  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Print: hide chrome on CV page */

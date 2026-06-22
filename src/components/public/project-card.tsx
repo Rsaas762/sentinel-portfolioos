@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       className={cn(
-        "group relative flex flex-col rounded-lg border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md",
+        "group relative flex flex-col rounded-lg border bg-card p-6 shadow-sm transition-colors hover:border-primary/40 hover:shadow-md",
       )}
     >
       <div className="mb-3 flex items-center justify-between gap-2">
