@@ -2,9 +2,14 @@ import Link from "next/link";
 import {
   ArrowRight,
   ShieldCheck,
+  Layers,
   Terminal,
   CheckCircle2,
   Quote,
+  Target,
+  Lock,
+  FileText,
+  BadgeCheck,
 } from "lucide-react";
 import { getRepo } from "@/lib/data";
 import { Button } from "@/components/ui/button";
@@ -26,6 +31,15 @@ export default async function HomePage() {
       repo.listTestimonials(),
     ]);
 
+  // Flagship project (full, with sections) for the closer-look preview.
+  const flagship = featured[0]
+    ? await repo.getProjectBySlug(featured[0].slug)
+    : null;
+  const flagshipProblem = flagship?.sections?.find((s) => s.kind === "problem");
+  const flagshipSecurity = flagship?.sections?.find(
+    (s) => s.kind === "security",
+  );
+
   const stats = [
     { value: projects.length, label: "Case studies" },
     { value: skills.length, label: "Tracked skills" },
@@ -36,13 +50,22 @@ export default async function HomePage() {
     { value: 6, label: "Skill domains" },
   ];
 
+  const cyberTags = skills
+    .filter((s) => s.category === "cybersecurity")
+    .slice(0, 4)
+    .map((s) => s.name);
+  const fullStackTags = skills
+    .filter((s) => ["frontend", "backend", "databases"].includes(s.category))
+    .slice(0, 6)
+    .map((s) => s.name);
+
   const topTestimonial = testimonials[0];
 
   return (
     <div>
-      {/* Hero */}
+      {/* ── Hero: who I am + what I build ───────────────────────────── */}
       <section className="border-b">
-        <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-28">
           <div className="animate-fade-up">
             {settings.available_for_work ? (
               <Badge variant="success" className="mb-6">
@@ -56,10 +79,10 @@ export default async function HomePage() {
             <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
               {settings.hero_title}
             </h1>
-            <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
               {settings.hero_subtitle}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button asChild size="lg">
                 <Link href="/projects">
                   {settings.hero_cta_label}
@@ -81,7 +104,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Clean "proof" snapshot card */}
+          {/* Clean "proof of work" snapshot card */}
           <div className="animate-fade-up [animation-delay:100ms]">
             <div className="rounded-lg border bg-card shadow-sm">
               <div className="border-b px-6 py-5">
@@ -119,11 +142,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* ── Stats: quick credibility ────────────────────────────────── */}
       <section className="border-b bg-muted/40">
         <div className="mx-auto grid max-w-6xl grid-cols-2 px-6 md:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="px-2 py-10 text-center">
+            <div key={s.label} className="px-2 py-8 text-center sm:py-10">
               <div className="text-3xl font-semibold tracking-tight text-foreground">
                 {s.value}
               </div>
@@ -135,38 +158,177 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured projects */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              Selected work
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Featured case studies
-            </h2>
-            <p className="mt-3 max-w-xl text-muted-foreground">
-              Each project is documented end-to-end: the problem, the build, the
-              security trade-offs, and what I learned.
-            </p>
-          </div>
-          <Button asChild variant="ghost">
-            <Link href="/projects">
-              All projects
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
+      {/* ── Focus: cybersecurity + full-stack direction ─────────────── */}
+      <section className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+          <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            My direction
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Cybersecurity and full-stack, built together
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            I&rsquo;m heading into security-focused engineering, and I treat
+            building and breaking as one discipline: ship things well, then learn
+            how they fail.
+          </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p) => (
-            <ProjectCard key={p.id} project={p} />
-          ))}
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-lg border bg-card p-6 sm:p-8">
+            <span className="inline-flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <ShieldCheck className="size-5" />
+            </span>
+            <h3 className="mt-4 text-lg font-semibold">Cybersecurity</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Understanding how systems break and how to defend them — web app
+              security, network segmentation and detection, and threat modelling
+              — practised in isolated labs I can rebuild from scratch.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {cyberTags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-md border bg-muted/50 px-2 py-0.5 text-xs text-muted-foreground"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-card p-6 sm:p-8">
+            <span className="inline-flex size-10 items-center justify-center rounded-md bg-primary/10 text-primary">
+              <Layers className="size-5" />
+            </span>
+            <h3 className="mt-4 text-lg font-semibold">Full-stack development</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Building complete, accessible web apps end to end with Next.js,
+              TypeScript, and PostgreSQL — with real validation, authentication,
+              and data modelling, not just a polished front end.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {fullStackTags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-md border bg-muted/50 px-2 py-0.5 text-xs text-muted-foreground"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-muted-foreground">
+          <Lock className="mr-1.5 inline size-3.5 text-primary" />
+          The overlap is the point — I bring a security mindset into everything I
+          build.
+        </p>
+      </section>
+
+      {/* ── Featured projects: strongest work ───────────────────────── */}
+      <section className="border-y bg-muted/40">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+                Selected work
+              </p>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                Featured case studies
+              </h2>
+              <p className="mt-3 max-w-xl text-muted-foreground">
+                Each project is documented end to end: the problem, the build,
+                the security trade-offs, and what I learned.
+              </p>
+            </div>
+            <Button asChild variant="ghost">
+              <Link href="/projects">
+                All projects
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((p) => (
+              <ProjectCard key={p.id} project={p} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Skills teaser */}
+      {/* ── Case study preview: a closer look ───────────────────────── */}
+      {flagship ? (
+        <section className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+          <div className="mb-10 text-center">
+            <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              A closer look
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              How I document a project
+            </h2>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
+            <div className="border-b px-6 py-5 sm:px-8">
+              <Badge variant="secondary" className="mb-3">
+                Featured case study
+              </Badge>
+              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                {flagship.title}
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                {flagship.short_description}
+              </p>
+            </div>
+
+            <div className="grid gap-px bg-border sm:grid-cols-2">
+              <div className="bg-card p-6 sm:p-8">
+                <h4 className="flex items-center gap-2 text-sm font-semibold">
+                  <Target className="size-4 text-primary" /> The problem
+                </h4>
+                <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
+                  {flagshipProblem?.body ?? flagship.short_description}
+                </p>
+              </div>
+              <div className="bg-card p-6 sm:p-8">
+                <h4 className="flex items-center gap-2 text-sm font-semibold">
+                  <ShieldCheck className="size-4 text-primary" /> Security
+                  considerations
+                </h4>
+                <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-muted-foreground">
+                  {flagshipSecurity?.body ??
+                    "Each project documents its security trade-offs honestly."}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t px-6 py-5 sm:px-8">
+              <div className="flex flex-wrap gap-1.5">
+                {flagship.tech_stack.slice(0, 5).map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-md border bg-muted/50 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <Button asChild>
+                <Link href={`/projects/${flagship.slug}`}>
+                  Read the full case study
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* ── Skills snapshot ─────────────────────────────────────────── */}
       <section className="border-y bg-muted/40">
-        <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
           <div className="mb-12 text-center">
             <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
               Capabilities
@@ -204,33 +366,72 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Testimonial */}
-      {topTestimonial ? (
-        <section className="mx-auto max-w-3xl px-6 py-24 text-center">
-          <Quote className="mx-auto size-7 text-primary/40" />
-          <blockquote className="mt-6 text-balance text-xl font-medium leading-relaxed sm:text-2xl">
-            “{topTestimonial.quote}”
-          </blockquote>
-          <p className="mt-6 text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">
-              {topTestimonial.author}
-            </span>{" "}
-            — {topTestimonial.role}
+      {/* ── Credibility: why the work is trustworthy ────────────────── */}
+      <section className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+        <div className="mb-12 text-center">
+          <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            Why it&rsquo;s credible
           </p>
-        </section>
-      ) : null}
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Honest work, documented properly
+          </h2>
+        </div>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              Icon: FileText,
+              title: "Case studies, not links",
+              body: "Every project explains the problem, the build, and the trade-offs — so you can see how I think, not just what I shipped.",
+            },
+            {
+              Icon: BadgeCheck,
+              title: "Honest scoping",
+              body: "Work is labelled as labs, coursework, or freelance, with limitations noted. No inflated titles or invented experience.",
+            },
+            {
+              Icon: ShieldCheck,
+              title: "Security in every build",
+              body: "Input validation, least privilege, and documented decisions — including in this site, which I'm happy to walk through.",
+            },
+          ].map(({ Icon, title, body }) => (
+            <div key={title} className="rounded-lg border bg-card p-6">
+              <Icon className="size-5 text-primary" />
+              <h3 className="mt-3 font-semibold">{title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                {body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {topTestimonial ? (
+          <figure className="mx-auto mt-12 max-w-3xl rounded-xl border bg-muted/40 p-8 text-center sm:p-10">
+            <Quote className="mx-auto size-6 text-primary/40" />
+            <blockquote className="mt-4 text-balance text-lg font-medium leading-relaxed sm:text-xl">
+              &ldquo;{topTestimonial.quote}&rdquo;
+            </blockquote>
+            <figcaption className="mt-5 text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">
+                {topTestimonial.author}
+              </span>{" "}
+              — {topTestimonial.role}
+            </figcaption>
+          </figure>
+        ) : null}
+      </section>
+
+      {/* ── Contact CTA ─────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-6xl px-6 pb-20 sm:pb-24">
         <div className="rounded-xl border bg-muted/40 p-10 text-center sm:p-16">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Let’s turn the next project into proof.
+            Let&rsquo;s turn the next project into proof.
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
             Open to internships, junior security/full-stack roles, and small
-            freelance builds.
+            freelance builds. I usually reply within a day or two.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild size="lg">
               <Link href="/contact">Contact me</Link>
             </Button>
