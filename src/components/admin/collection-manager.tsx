@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import { useActionState } from "react";
-import { Pencil, Plus, Trash2, X } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Search } from "lucide-react";
+import type { ComponentType } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { FormBanner, SubmitButton } from "@/components/admin/form-controls";
+import { EmptyState } from "@/components/admin/empty-state";
 import { deleteRow } from "@/lib/actions";
 import { IDLE, type ActionResult } from "@/lib/actions/result";
-import { cn } from "@/lib/utils";
 
 export interface Identifiable {
   id: string;
@@ -26,6 +28,8 @@ interface ManagerProps<T extends Identifiable> {
   readOnly: boolean;
   /** Singular noun, e.g. "skill". */
   noun: string;
+  /** Icon for the empty state. */
+  Icon: ComponentType<{ className?: string }>;
   createAction: CreateAction;
   updateAction: UpdateAction;
   /** Row content in the list. */
@@ -35,6 +39,8 @@ interface ManagerProps<T extends Identifiable> {
     item: T | null,
     errors: Record<string, string>,
   ) => React.ReactNode;
+  /** Optional searchable text per item — enables the search box. */
+  searchableText?: (item: T) => string;
   emptyHint?: string;
 }
 
@@ -43,17 +49,47 @@ export function CollectionManager<T extends Identifiable>({
   table,
   readOnly,
   noun,
+  Icon,
   createAction,
   updateAction,
   renderRow,
   renderFields,
+  searchableText,
   emptyHint,
 }: ManagerProps<T>) {
   const [editing, setEditing] = React.useState<T | "new" | null>(null);
+  const [query, setQuery] = React.useState("");
+
+  const filtered =
+    searchableText && query.trim()
+      ? items.filter((i) =>
+          searchableText(i).toLowerCase().includes(query.trim().toLowerCase()),
+        )
+      : items;
 
   return (
     <div>
-      <div className="mb-4 flex justify-end">
+      {/* Toolbar */}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-muted-foreground">
+            {items.length} {noun}
+            {items.length === 1 ? "" : "s"}
+          </span>
+          {searchableText && items.length > 0 ? (
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={`Search ${noun}s…`}
+                className="h-9 w-44 pl-8 sm:w-56"
+                aria-label={`Search ${noun}s`}
+              />
+            </div>
+          ) : null}
+        </div>
         <Button size="sm" onClick={() => setEditing("new")}>
           <Plus className="size-4" /> Add {noun}
         </Button>
@@ -61,15 +97,28 @@ export function CollectionManager<T extends Identifiable>({
 
       <div className="overflow-hidden rounded-lg border bg-card">
         {items.length === 0 ? (
-          <p className="p-8 text-center text-sm text-muted-foreground">
-            {emptyHint ?? `No ${noun}s yet.`}
-          </p>
+          <EmptyState
+            Icon={Icon}
+            title={`No ${noun}s yet`}
+            description={emptyHint ?? `Add your first ${noun} to get started.`}
+            action={
+              <Button size="sm" onClick={() => setEditing("new")}>
+                <Plus className="size-4" /> Add {noun}
+              </Button>
+            }
+          />
+        ) : filtered.length === 0 ? (
+          <EmptyState
+            Icon={Search}
+            title="No matches"
+            description={`No ${noun}s match “${query}”.`}
+          />
         ) : (
           <ul className="divide-y">
-            {items.map((item) => (
+            {filtered.map((item) => (
               <li
                 key={item.id}
-                className="flex items-center justify-between gap-4 px-4 py-3"
+                className="flex items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-muted/40"
               >
                 <div className="min-w-0 flex-1">{renderRow(item)}</div>
                 <div className="flex shrink-0 items-center gap-1">
@@ -121,7 +170,10 @@ function EntityForm<T extends Identifiable>({
   readOnly: boolean;
   createAction: CreateAction;
   updateAction: UpdateAction;
-  renderFields: (item: T | null, errors: Record<string, string>) => React.ReactNode;
+  renderFields: (
+    item: T | null,
+    errors: Record<string, string>,
+  ) => React.ReactNode;
   onDone: () => void;
 }) {
   const action: CreateAction = item
@@ -137,10 +189,12 @@ function EntityForm<T extends Identifiable>({
   }, [state]);
 
   return (
-    <form action={formAction} className="space-y-4">
-      <FormBanner status={state.status} message={state.message} />
-      {renderFields(item, state.fieldErrors ?? {})}
-      <div className="flex justify-end gap-2 border-t pt-4">
+    <form action={formAction} className="flex max-h-[72vh] flex-col">
+      <div className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
+        <FormBanner status={state.status} message={state.message} />
+        {renderFields(item, state.fieldErrors ?? {})}
+      </div>
+      <div className="flex justify-end gap-2 border-t bg-card px-5 py-3">
         <Button type="button" variant="ghost" onClick={onDone}>
           Cancel
         </Button>
@@ -227,7 +281,7 @@ function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4 sm:items-center"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-foreground/40 p-4 backdrop-blur-sm sm:items-center"
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -235,11 +289,7 @@ function Modal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div
-        className={cn(
-          "my-8 w-full max-w-lg rounded-xl border bg-card shadow-xl",
-        )}
-      >
+      <div className="my-8 w-full max-w-lg overflow-hidden rounded-xl border bg-card shadow-xl">
         <div className="flex items-center justify-between border-b px-5 py-3">
           <h2 className="font-semibold">{title}</h2>
           <Button
@@ -251,7 +301,7 @@ function Modal({
             <X className="size-4" />
           </Button>
         </div>
-        <div className="p-5">{children}</div>
+        {children}
       </div>
     </div>
   );

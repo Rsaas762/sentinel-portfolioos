@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Pencil, Trash2, Star, ExternalLink } from "lucide-react";
+import { Pencil, Trash2, Star, ExternalLink, FolderKanban, Plus } from "lucide-react";
 import type { Project } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/admin/empty-state";
 import { deleteRow } from "@/lib/actions";
 import {
   PROJECT_CATEGORY_LABELS,
@@ -22,19 +23,33 @@ export function ProjectsTable({
 }) {
   if (projects.length === 0) {
     return (
-      <div className="rounded-lg border bg-card p-10 text-center text-sm text-muted-foreground">
-        No projects yet. Create your first case study.
+      <div className="overflow-hidden rounded-lg border bg-card">
+        <EmptyState
+          Icon={FolderKanban}
+          title="No projects yet"
+          description="Create your first case study to showcase your work."
+          action={
+            <Button asChild size="sm">
+              <Link href="/admin/projects/new">
+                <Plus className="size-4" /> New project
+              </Link>
+            </Button>
+          }
+        />
       </div>
     );
   }
 
   return (
     <div className="overflow-hidden rounded-lg border bg-card">
+      <div className="border-b px-4 py-2.5 text-sm text-muted-foreground">
+        {projects.length} project{projects.length === 1 ? "" : "s"}
+      </div>
       <ul className="divide-y">
         {projects.map((p) => (
           <li
             key={p.id}
-            className="flex items-center justify-between gap-4 px-4 py-3"
+            className="flex items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-muted/40"
           >
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">

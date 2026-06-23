@@ -1,5 +1,6 @@
 "use client";
 
+import { Award } from "lucide-react";
 import { CollectionManager } from "@/components/admin/collection-manager";
 import { Field } from "@/components/admin/form-controls";
 import { Input } from "@/components/ui/input";
@@ -21,9 +22,11 @@ export function CertificationsManager({
       items={certifications}
       table="certifications"
       noun="certification"
+      Icon={Award}
       readOnly={readOnly}
       createAction={createCertification}
       updateAction={updateCertification}
+      searchableText={(c) => `${c.name} ${c.issuer} ${c.status}`}
       renderRow={(c) => (
         <div className="flex items-center gap-3">
           <span className="truncate font-medium">{c.name}</span>

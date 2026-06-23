@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageSquareQuote } from "lucide-react";
 import { CollectionManager } from "@/components/admin/collection-manager";
 import { Field, CheckboxField } from "@/components/admin/form-controls";
 import { Input } from "@/components/ui/input";
@@ -20,9 +21,11 @@ export function TestimonialsManager({
       items={testimonials}
       table="testimonials"
       noun="testimonial"
+      Icon={MessageSquareQuote}
       readOnly={readOnly}
       createAction={createTestimonial}
       updateAction={updateTestimonial}
+      searchableText={(t) => `${t.author} ${t.role} ${t.quote}`}
       renderRow={(t) => (
         <div className="flex items-center gap-3">
           <div className="min-w-0">

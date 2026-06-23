@@ -1,5 +1,6 @@
 "use client";
 
+import { Briefcase } from "lucide-react";
 import { CollectionManager } from "@/components/admin/collection-manager";
 import { Field } from "@/components/admin/form-controls";
 import { Input } from "@/components/ui/input";
@@ -19,9 +20,11 @@ export function ExperienceManager({
       items={experience}
       table="experience"
       noun="role"
+      Icon={Briefcase}
       readOnly={readOnly}
       createAction={createExperience}
       updateAction={updateExperience}
+      searchableText={(e) => `${e.role} ${e.organization} ${e.location ?? ""}`}
       renderRow={(e) => (
         <div>
           <p className="truncate font-medium">{e.role}</p>

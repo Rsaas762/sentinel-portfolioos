@@ -1,5 +1,6 @@
 "use client";
 
+import { Sparkles } from "lucide-react";
 import { CollectionManager } from "@/components/admin/collection-manager";
 import { Field } from "@/components/admin/form-controls";
 import { Input } from "@/components/ui/input";
@@ -21,9 +22,11 @@ export function SkillsManager({
       items={skills}
       table="skills"
       noun="skill"
+      Icon={Sparkles}
       readOnly={readOnly}
       createAction={createSkill}
       updateAction={updateSkill}
+      searchableText={(s) => `${s.name} ${s.category} ${s.note ?? ""}`}
       renderRow={(s) => (
         <div className="flex items-center gap-3">
           <span className="truncate font-medium">{s.name}</span>

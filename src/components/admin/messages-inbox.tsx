@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Mail, MailOpen, Archive, Trash2, Reply } from "lucide-react";
+import { Mail, MailOpen, Archive, Trash2, Reply, Inbox } from "lucide-react";
 import type { ContactMessage } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/admin/empty-state";
 import { setMessageStatus, deleteMessage } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 
@@ -20,11 +21,12 @@ export function MessagesInbox({
 
   if (messages.length === 0) {
     return (
-      <div className="rounded-lg border bg-card p-10 text-center">
-        <Mail className="mx-auto size-8 text-muted-foreground" />
-        <p className="mt-3 text-sm text-muted-foreground">
-          No messages yet. Submissions from your contact form will appear here.
-        </p>
+      <div className="overflow-hidden rounded-lg border bg-card">
+        <EmptyState
+          Icon={Inbox}
+          title="No messages yet"
+          description="Submissions from your public contact form will appear here."
+        />
       </div>
     );
   }
