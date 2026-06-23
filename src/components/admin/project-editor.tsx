@@ -29,8 +29,8 @@ import {
   PROJECT_CATEGORY_LABELS,
   PROJECT_STATUS_LABELS,
   PROJECT_DIFFICULTY_LABELS,
+  SECTION_KIND_LABELS,
 } from "@/lib/labels";
-import { humanize } from "@/lib/utils";
 
 interface SectionDraft {
   key: string;
@@ -43,9 +43,11 @@ const DEFAULT_HEADINGS: Record<SectionKind, string> = {
   problem: "Problem",
   solution: "Solution",
   tech: "How it's built",
+  features: "Key features",
   security: "Security considerations",
   learned: "What I learned",
   screenshots: "Screenshots",
+  future: "Future improvements",
 };
 
 function initialSections(project: Project | null): SectionDraft[] {
@@ -154,6 +156,20 @@ export function ProjectEditor({
               name="short_description"
               rows={2}
               defaultValue={project?.short_description ?? ""}
+            />
+          </Field>
+
+          <Field
+            label="Scope"
+            htmlFor="scope"
+            hint="Honest framing, e.g. “Portfolio project”, “Student lab”, “Coursework”, “MVP”."
+            error={e.scope}
+          >
+            <Input
+              id="scope"
+              name="scope"
+              defaultValue={project?.scope ?? ""}
+              placeholder="Portfolio project"
             />
           </Field>
 
@@ -284,7 +300,7 @@ export function ProjectEditor({
                 >
                   {SECTION_KINDS.map((k) => (
                     <option key={k} value={k}>
-                      {humanize(k)}
+                      {SECTION_KIND_LABELS[k]}
                     </option>
                   ))}
                 </Select>

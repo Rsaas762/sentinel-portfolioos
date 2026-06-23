@@ -23,13 +23,29 @@ describe("demo provider reads", () => {
     expect(featured.every((p) => p.featured)).toBe(true);
   });
 
-  it("returns a project with case-study sections by slug", async () => {
+  it("returns a project with the full case-study section set by slug", async () => {
     const project = await repo.getProjectBySlug("sentinel-helpdesk-ai");
     expect(project).not.toBeNull();
-    expect(project?.sections?.length).toBeGreaterThanOrEqual(6);
+    expect(project?.sections?.length).toBeGreaterThanOrEqual(8);
     const kinds = project?.sections?.map((s) => s.kind) ?? [];
-    expect(kinds).toContain("security");
-    expect(kinds).toContain("learned");
+    for (const kind of [
+      "problem",
+      "solution",
+      "tech",
+      "features",
+      "security",
+      "learned",
+      "screenshots",
+      "future",
+    ]) {
+      expect(kinds).toContain(kind);
+    }
+  });
+
+  it("includes Sentinel PortfolioOS as a project and gives every project an honest scope", async () => {
+    const projects = await repo.listProjects();
+    expect(projects.some((p) => p.slug === "sentinel-portfolioos")).toBe(true);
+    expect(projects.every((p) => p.scope.trim().length > 0)).toBe(true);
   });
 
   it("returns null for an unknown slug", async () => {

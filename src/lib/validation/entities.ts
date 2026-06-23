@@ -45,6 +45,11 @@ export const projectSchema = z.object({
   title: z.string().trim().min(2, "Title is required.").max(160),
   slug,
   short_description: z.string().trim().min(10, "Add a short description.").max(400),
+  // Honest scope label; defaults when left blank.
+  scope: z.preprocess(
+    (v) => (typeof v === "string" && v.trim() ? v.trim() : "Portfolio project"),
+    z.string().max(40),
+  ),
   category: z.enum(PROJECT_CATEGORIES),
   status: z.enum(PROJECT_STATUSES),
   difficulty: z.enum(PROJECT_DIFFICULTIES),

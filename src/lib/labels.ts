@@ -3,8 +3,20 @@ import type {
   ProjectCategory,
   ProjectDifficulty,
   ProjectStatus,
+  SectionKind,
   SkillCategory,
 } from "@/lib/data/types";
+
+export const SECTION_KIND_LABELS: Record<SectionKind, string> = {
+  problem: "Problem",
+  solution: "Solution",
+  tech: "Tech & build",
+  features: "Features",
+  security: "Security",
+  learned: "What I learned",
+  screenshots: "Screenshots",
+  future: "Future improvements",
+};
 
 export const PROJECT_CATEGORY_LABELS: Record<ProjectCategory, string> = {
   cybersecurity: "Cybersecurity",

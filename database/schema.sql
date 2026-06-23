@@ -37,7 +37,7 @@ exception when duplicate_object then null; end $$;
 
 do $$ begin
   create type section_kind as enum
-    ('problem','solution','tech','security','learned','screenshots');
+    ('problem','solution','tech','features','security','learned','screenshots','future');
 exception when duplicate_object then null; end $$;
 
 do $$ begin
@@ -85,6 +85,7 @@ create table if not exists projects (
   slug              text unique not null,
   title             text not null,
   short_description text not null default '',
+  scope             text not null default 'Portfolio project',
   category          project_category not null default 'full_stack',
   status            project_status not null default 'in_progress',
   difficulty        project_difficulty not null default 'intermediate',

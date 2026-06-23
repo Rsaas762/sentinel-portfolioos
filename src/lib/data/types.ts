@@ -33,9 +33,11 @@ export const SECTION_KINDS = [
   "problem",
   "solution",
   "tech",
+  "features",
   "security",
   "learned",
   "screenshots",
+  "future",
 ] as const;
 export type SectionKind = (typeof SECTION_KINDS)[number];
 
@@ -86,6 +88,8 @@ export interface Project {
   slug: string;
   title: string;
   short_description: string;
+  /** Honest framing, e.g. "Portfolio project", "Student lab", "Coursework", "MVP". */
+  scope: string;
   category: ProjectCategory;
   status: ProjectStatus;
   difficulty: ProjectDifficulty;

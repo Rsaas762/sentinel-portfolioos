@@ -34,8 +34,11 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.title}
         </Link>
       </h3>
+      <p className="mt-1 text-xs font-medium text-muted-foreground">
+        {project.scope}
+      </p>
 
-      <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
+      <p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">
         {project.short_description}
       </p>
 
@@ -43,7 +46,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.tech_stack.slice(0, 5).map((tech) => (
           <span
             key={tech}
-            className="rounded border bg-muted/50 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
+            className="rounded-md border bg-muted/50 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
           >
             {tech}
           </span>
