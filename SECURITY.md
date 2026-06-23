@@ -1,12 +1,15 @@
 # Security
 
-Sentinel PortfolioOS is built by and for people who care about security, so the
-codebase tries to model good habits. This document explains the security design,
-its assumptions, and — honestly — its limitations.
+Sentinel PortfolioOS is **security-conscious** and **privacy-aware**: it is
+**designed with security basics in mind** — input validation, least privilege,
+auditability, and data minimisation — and built by and for people learning to do
+security well. This document explains the design, its assumptions, and — honestly —
+its limitations.
 
-> **No guarantees.** Nothing here makes the application "fully secure". Security is
-> an ongoing trade-off. This document describes a sensible baseline and the
-> reasoning behind it, not a warranty.
+> **No guarantees.** This is a sensible baseline, not a warranty. Nothing here
+> makes the application "fully secure" — security is an ongoing trade-off, and this
+> document describes the reasoning behind the controls rather than claiming the
+> result is bulletproof.
 
 ## Reporting a vulnerability
 
@@ -84,9 +87,14 @@ The public endpoint (`src/app/api/contact/route.ts`) layers several defences:
 
 ### 7. Secrets & environment hygiene
 - Only `NEXT_PUBLIC_*` variables are exposed to the browser.
-- `ANTHROPIC_API_KEY`, `IP_HASH_SALT`, and the Supabase service path are read
+- `ANTHROPIC_API_KEY`, `IP_HASH_SALT`, and the Supabase server client are read
   **only in server code**.
-- `.env.local` is git-ignored; `.env.example` documents every variable.
+- Server modules that touch secrets or the request — `lib/supabase/server`,
+  `lib/auth`, `lib/ai`, `lib/rate-limit`, and the Supabase repository — import
+  **`server-only`**, so the build **fails** if any of them is ever pulled into a
+  client bundle. This makes the server/client boundary a compile-time guarantee.
+- `.env.local` is git-ignored; `.env.example` ships with **all secret values
+  blank** and documents every variable.
 - The Supabase **anon** key is intended to be public; it is safe only because RLS
   restricts what it can do. Do **not** ship the service-role key to the client.
 
@@ -95,6 +103,22 @@ The AI assistant (`src/lib/ai/`) is constrained by guardrails
 (`guardrails.ts`) that forbid inventing experience, skills, metrics, or
 guaranteed-security claims. Outputs are always labelled **drafts** for human
 review. The model only receives the notes the user types — no database content.
+
+### 9. Privacy posture (privacy-aware, GDPR-conscious foundation)
+The app is **privacy-aware** and aims to be a **GDPR-conscious foundation** — not a
+claim of compliance:
+
+- **Data minimisation** — the only personal data collected from visitors is what
+  they enter in the contact form (name, email, optional subject, message). There
+  are no analytics, tracking pixels, or third-party advertising cookies.
+- **No raw IP storage** — IP addresses are SHA-256 hashed with a server-side salt
+  and used only for abuse mitigation, then discarded in raw form.
+- **Purpose limitation** — submitted details are used only to reply to the sender.
+- **Honest framing** — this is **not** GDPR compliance and must not be presented as
+  such. A real deployment that processes personal data should add a privacy policy,
+  a documented lawful basis, retention and erasure handling, and a qualified
+  review. The bundled *GDPR Compliance Toolkit* project is an educational reference,
+  not legal advice.
 
 ## Assumptions & out-of-scope (be honest)
 
@@ -117,3 +141,5 @@ review. The model only receives the notes the user types — no database content
 - [ ] Replace all sample content with your own honest information.
 - [ ] Run `npm audit` and address advisories.
 - [ ] Consider a shared-store rate limiter + CAPTCHA if you expect traffic.
+- [ ] If you collect personal data, add a privacy policy and a retention/erasure
+      process — treat this as a GDPR-conscious starting point, not compliance.

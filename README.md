@@ -27,7 +27,7 @@ live CMS; add an Anthropic API key and the AI writing assistant uses Claude.
 - [Environment variables](#environment-variables)
 - [Database setup (Supabase)](#database-setup-supabase)
 - [Deployment](#deployment)
-- [Security features](#security-features)
+- [Security & privacy](#security--privacy)
 - [The AI case-study assistant](#the-ai-case-study-assistant)
 - [Project structure](#project-structure)
 - [Roadmap](#roadmap)
@@ -180,10 +180,13 @@ Deploys cleanly to **Vercel**:
 
 Details and alternatives: [`docs/deployment.md`](docs/deployment.md).
 
-## Security features
+## Security & privacy
 
-Security is a first-class concern (see [`SECURITY.md`](SECURITY.md) for the full
-model). Highlights:
+Sentinel PortfolioOS is **security-conscious** and **privacy-aware** — designed
+with security basics in mind and a **GDPR-conscious foundation**, while staying
+honest about its limits (see [`SECURITY.md`](SECURITY.md) for the full model). It
+is a sensible baseline, **not** a guarantee of being "fully secure" or GDPR
+compliant. Highlights:
 
 - **Validation everywhere** — shared Zod schemas run on the client *and* are
   re-validated on the server; the database never trusts client input.
@@ -194,12 +197,16 @@ model). Highlights:
   acting user's email; it can't be bypassed by application code.
 - **Safe rendering** — stored content is rendered as escaped React text, never as
   raw HTML. There is **no** untrusted `dangerouslySetInnerHTML`.
-- **Contact-form hardening** — honeypot field, in-memory rate limiting, and
-  SHA-256 IP hashing (raw IPs are never stored).
+- **Contact-form hardening** — honeypot field, in-memory rate limiting (with a
+  documented per-instance limitation), and SHA-256 IP hashing (raw IPs are never
+  stored).
 - **Env hygiene** — secrets are server-only; only `NEXT_PUBLIC_*` reaches the
-  client.
-- **Honest wording** — the app never claims to be "fully secure". Security is a
-  trade-off, and the docs say so.
+  client, and secret-touching modules import `server-only` so the build fails if
+  one leaks into a client bundle.
+- **Privacy-aware** — data minimisation (only what the contact form collects), no
+  analytics or tracking, and honest framing rather than a compliance claim.
+- **Honest wording** — the app never claims to be "fully secure" or GDPR
+  compliant. Security and privacy are trade-offs, and the docs say so.
 
 ## The AI case-study assistant
 

@@ -6,7 +6,8 @@ actually built and understand.
 
 ## One-line (CV project header)
 **Sentinel PortfolioOS** — a full-stack portfolio platform (Next.js, TypeScript,
-Supabase) with a public case-study site and a secure admin CMS.
+Supabase) with a public case-study site and an authenticated, security-conscious
+admin CMS.
 
 ## Short (2–3 lines)
 Built a portfolio platform pairing a public, case-study-driven site with an
