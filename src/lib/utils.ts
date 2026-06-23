@@ -13,10 +13,3 @@ export function formatMonthYear(iso?: string | null): string {
   if (Number.isNaN(d.getTime())) return "";
   return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
-
-/** Title-case a snake_case or kebab-case token, e.g. "operating_systems" -> "Operating Systems". */
-export function humanize(value: string): string {
-  return value
-    .replace(/[_-]+/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}

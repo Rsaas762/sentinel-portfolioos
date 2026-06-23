@@ -3,6 +3,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/components/icons/social";
 import type { Project } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
+import { TechChips } from "@/components/public/tech-chips";
 import {
   PROJECT_CATEGORY_LABELS,
   PROJECT_STATUS_LABELS,
@@ -42,21 +43,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.short_description}
       </p>
 
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {project.tech_stack.slice(0, 5).map((tech) => (
-          <span
-            key={tech}
-            className="rounded-md border bg-muted/50 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
-          >
-            {tech}
-          </span>
-        ))}
-        {project.tech_stack.length > 5 ? (
-          <span className="px-1 py-0.5 font-mono text-[11px] text-muted-foreground">
-            +{project.tech_stack.length - 5}
-          </span>
-        ) : null}
-      </div>
+      <TechChips items={project.tech_stack} max={5} className="mt-4" />
 
       <div className="mt-5 flex items-center justify-between border-t pt-4">
         <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">

@@ -15,6 +15,7 @@ import { getRepo } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProjectCard } from "@/components/public/project-card";
+import { TechChips } from "@/components/public/tech-chips";
 import { SKILL_CATEGORY_LABELS } from "@/lib/labels";
 import { SKILL_CATEGORIES } from "@/lib/data/types";
 
@@ -305,16 +306,7 @@ export default async function HomePage() {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-4 border-t px-6 py-5 sm:px-8">
-              <div className="flex flex-wrap gap-1.5">
-                {flagship.tech_stack.slice(0, 5).map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-md border bg-muted/50 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+              <TechChips items={flagship.tech_stack} max={5} />
               <Button asChild>
                 <Link href={`/projects/${flagship.slug}`}>
                   Read the full case study

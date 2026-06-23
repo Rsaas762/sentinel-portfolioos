@@ -1,13 +1,10 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
-import { Pencil, Trash2, Star, ExternalLink, FolderKanban, Plus } from "lucide-react";
+import { Pencil, Star, ExternalLink, FolderKanban, Plus } from "lucide-react";
 import type { Project } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/admin/empty-state";
-import { deleteRow } from "@/lib/actions";
+import { ConfirmDeleteButton } from "@/components/admin/confirm-delete-button";
 import {
   PROJECT_CATEGORY_LABELS,
   PROJECT_STATUS_LABELS,
@@ -86,57 +83,16 @@ export function ProjectsTable({
                   <Pencil className="size-4" />
                 </Link>
               </Button>
-              <DeleteProjectButton id={p.id} readOnly={readOnly} />
+              <ConfirmDeleteButton
+                table="projects"
+                id={p.id}
+                readOnly={readOnly}
+                label="Delete project"
+              />
             </div>
           </li>
         ))}
       </ul>
     </div>
-  );
-}
-
-function DeleteProjectButton({
-  id,
-  readOnly,
-}: {
-  id: string;
-  readOnly: boolean;
-}) {
-  const [confirm, setConfirm] = React.useState(false);
-  const [pending, startTransition] = React.useTransition();
-
-  if (confirm) {
-    return (
-      <span className="flex items-center gap-1">
-        <Button
-          variant="destructive"
-          size="sm"
-          disabled={pending}
-          onClick={() =>
-            startTransition(async () => {
-              await deleteRow("projects", id);
-              setConfirm(false);
-            })
-          }
-        >
-          {readOnly ? "Demo" : "Delete"}
-        </Button>
-        <Button variant="ghost" size="sm" onClick={() => setConfirm(false)}>
-          Cancel
-        </Button>
-      </span>
-    );
-  }
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      aria-label="Delete project"
-      className="text-muted-foreground hover:text-destructive"
-      onClick={() => setConfirm(true)}
-    >
-      <Trash2 className="size-4" />
-    </Button>
   );
 }

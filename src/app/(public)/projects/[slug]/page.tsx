@@ -19,6 +19,7 @@ import type { SectionKind } from "@/lib/data/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProseText } from "@/components/prose-text";
+import { TechChips } from "@/components/public/tech-chips";
 import {
   PROJECT_CATEGORY_LABELS,
   PROJECT_DIFFICULTY_LABELS,
@@ -154,16 +155,7 @@ export default async function ProjectDetailPage({
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
             Tech stack
           </p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {project.tech_stack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-md border bg-card px-2 py-0.5 font-mono text-xs text-muted-foreground"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          <TechChips items={project.tech_stack} className="mt-2" />
         </div>
       </section>
 

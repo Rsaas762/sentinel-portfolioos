@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import { useActionState } from "react";
-import { Plus, Pencil, Trash2, X, Search } from "lucide-react";
+import { Plus, Pencil, X, Search } from "lucide-react";
 import type { ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormBanner, SubmitButton } from "@/components/admin/form-controls";
 import { EmptyState } from "@/components/admin/empty-state";
-import { deleteRow } from "@/lib/actions";
+import { ConfirmDeleteButton } from "@/components/admin/confirm-delete-button";
 import { IDLE, type ActionResult } from "@/lib/actions/result";
 
 export interface Identifiable {
@@ -130,7 +130,11 @@ export function CollectionManager<T extends Identifiable>({
                   >
                     <Pencil className="size-4" />
                   </Button>
-                  <DeleteButton table={table} id={item.id} readOnly={readOnly} />
+                  <ConfirmDeleteButton
+                    table={table}
+                    id={item.id}
+                    readOnly={readOnly}
+                  />
                 </div>
               </li>
             ))}
@@ -205,56 +209,6 @@ function EntityForm<T extends Identifiable>({
         )}
       </div>
     </form>
-  );
-}
-
-function DeleteButton({
-  table,
-  id,
-  readOnly,
-}: {
-  table: string;
-  id: string;
-  readOnly: boolean;
-}) {
-  const [pending, startTransition] = React.useTransition();
-  const [confirm, setConfirm] = React.useState(false);
-
-  function onDelete() {
-    startTransition(async () => {
-      await deleteRow(table, id);
-      setConfirm(false);
-    });
-  }
-
-  if (confirm) {
-    return (
-      <span className="flex items-center gap-1">
-        <Button
-          variant="destructive"
-          size="sm"
-          onClick={onDelete}
-          disabled={pending}
-        >
-          {readOnly ? "Demo" : "Delete"}
-        </Button>
-        <Button variant="ghost" size="sm" onClick={() => setConfirm(false)}>
-          Cancel
-        </Button>
-      </span>
-    );
-  }
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      aria-label="Delete"
-      className="text-muted-foreground hover:text-destructive"
-      onClick={() => setConfirm(true)}
-    >
-      <Trash2 className="size-4" />
-    </Button>
   );
 }
 
