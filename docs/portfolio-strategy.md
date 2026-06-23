@@ -50,8 +50,8 @@ bullets with action verbs, and make sure the printable version fits cleanly.
 - Check the **Messages** inbox; reply quickly.
 
 ## 8. Before you publish — checklist
-- [ ] Replace ALL sample content (including the fictional "Alex Rivera" profile,
-      projects, testimonials, and certifications) with your own.
+- [ ] Keep all content honest and current (profile, projects, skills, experience).
+- [ ] Add real source/demo links once each project is pushed or deployed.
 - [ ] Every external link works and points to *your* repos/demos.
 - [ ] No exaggerated claims; in-progress work is labelled as such.
 - [ ] Screenshots added where possible.

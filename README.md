@@ -259,10 +259,12 @@ delivery for contact messages, and shared-store rate limiting.
 > (Anthropic Claude) with honesty guardrails and a deterministic fallback. Shipped
 > with TypeScript strict mode, Vitest tests, and a green lint/typecheck/build.
 
-## License & honesty note
+## Honesty note
 
-This is a portfolio scaffold with **sample data for a fictional student ("Alex
-Rivera")**. Replace it with your own real, honest content before publishing. Do
-not present sample projects, certifications, or testimonials as your own.
+This portfolio is populated with **Mohamed Elhalabi's real** profile, skills,
+experience, and projects (Sentinel Helpdesk AI, Sentinel WebGuard, Sentinel
+PortfolioOS, and Networking & Infrastructure Labs). Project source/demo links are
+intentionally left blank until each one is published, and certifications are
+empty until real, verifiable credentials are earned — nothing here is invented.
 
 Released under the MIT License — see headers / add a `LICENSE` file as needed.

@@ -257,6 +257,22 @@ export function ProjectEditor({
             </Field>
           </div>
 
+          <Field
+            label="Screenshots"
+            htmlFor="screenshots"
+            optional
+            hint="One image path or URL per line, e.g. /screenshots/my-app/dashboard.png"
+            error={e.screenshots}
+          >
+            <Textarea
+              id="screenshots"
+              name="screenshots"
+              rows={3}
+              defaultValue={(project?.screenshots ?? []).join("\n")}
+              placeholder={"/screenshots/my-app/one.png\n/screenshots/my-app/two.png"}
+            />
+          </Field>
+
           <div className="grid grid-cols-2 items-end gap-4">
             <Field label="Sort order" htmlFor="sort_order" error={e.sort_order}>
               <Input

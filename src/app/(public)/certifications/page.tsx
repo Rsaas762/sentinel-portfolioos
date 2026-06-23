@@ -20,9 +20,24 @@ export default async function CertificationsPage() {
       <PageHeader
         kicker="Credentials"
         title="Certifications"
-        description="What I've earned, what I'm working towards, and what's on the roadmap — shown honestly, including in-progress items."
+        description="Shown honestly. My main credential right now is my BSc in Network, Infrastructure & Cybersecurity — industry certifications will be listed here as I earn them."
         className="mb-12"
       />
+
+      {certs.length === 0 ? (
+        <div className="rounded-xl border bg-muted/30 p-10 text-center">
+          <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Award className="size-6" />
+          </span>
+          <h2 className="mt-4 font-semibold">No certifications listed yet</h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+            I&rsquo;m focused on completing my degree and building real projects.
+            Verifiable industry certifications will appear here as I earn them —
+            see the <strong>Experience</strong> page for my education in the
+            meantime.
+          </p>
+        </div>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         {certs.map((cert) => (

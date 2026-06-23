@@ -64,6 +64,17 @@ export const projectSchema = z.object({
         .filter(Boolean),
     )
     .pipe(z.array(z.string().max(40)).max(20)),
+  // Newline-separated image paths/URLs -> array.
+  screenshots: z
+    .string()
+    .optional()
+    .transform((v) =>
+      (v ?? "")
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean),
+    )
+    .pipe(z.array(z.string().max(300)).max(12)),
   github_url: optionalUrl,
   demo_url: optionalUrl,
   featured: checkbox,

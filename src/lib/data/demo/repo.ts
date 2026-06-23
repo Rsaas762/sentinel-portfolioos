@@ -20,6 +20,7 @@ import {
   SEED_TESTIMONIALS,
 } from "@/lib/data/seed/content";
 
+// Sample inbound messages so the admin inbox isn't empty in the demo.
 const DEMO_MESSAGES: ContactMessage[] = [
   {
     id: "msg-1",
@@ -27,7 +28,7 @@ const DEMO_MESSAGES: ContactMessage[] = [
     email: "dana@example.com",
     subject: "Internship enquiry",
     message:
-      "Hi Alex — we're recruiting a junior security analyst intern for the autumn. Your WebGuard project caught my eye. Could we set up a short call?",
+      "Hi Mohamed — we're recruiting a junior IT/security intern for the autumn. Your Sentinel WebGuard project caught my eye. Could we set up a short call?",
     status: "new",
     ip_hash: null,
     created_at: "2026-06-19T09:12:00.000Z",
@@ -36,9 +37,9 @@ const DEMO_MESSAGES: ContactMessage[] = [
     id: "msg-2",
     name: "Tomas Berg",
     email: "tomas@example.com",
-    subject: "Freelance: small business site",
+    subject: "Website checkup for my workshop",
     message:
-      "Looking for a clean, fast site for my workshop. Saw your dashboard project — is this the kind of thing you take on?",
+      "Saw your WebGuard checkup idea — would you be able to run it on my small business site and tell me what to fix?",
     status: "read",
     ip_hash: null,
     created_at: "2026-06-14T15:40:00.000Z",
@@ -48,7 +49,7 @@ const DEMO_MESSAGES: ContactMessage[] = [
 const DEMO_AUDIT: AuditLog[] = [
   {
     id: "aud-1",
-    actor: "alex.rivera@example.com",
+    actor: "mohammadhalabi777@gmail.com",
     action: "update",
     entity: "project",
     entity_id: "prj-webguard",
@@ -57,16 +58,16 @@ const DEMO_AUDIT: AuditLog[] = [
   },
   {
     id: "aud-2",
-    actor: "alex.rivera@example.com",
+    actor: "mohammadhalabi777@gmail.com",
     action: "create",
-    entity: "certification",
-    entity_id: "cert-4",
-    summary: "Added certification: TryHackMe — SOC Level 1 path",
+    entity: "project",
+    entity_id: "prj-helpdesk-ai",
+    summary: "Added screenshots to Sentinel Helpdesk AI",
     created_at: "2026-06-10T08:25:00.000Z",
   },
   {
     id: "aud-3",
-    actor: "alex.rivera@example.com",
+    actor: "mohammadhalabi777@gmail.com",
     action: "update",
     entity: "settings",
     entity_id: null,

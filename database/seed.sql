@@ -1,13 +1,11 @@
 -- ===========================================================================
--- Sentinel PortfolioOS — seed data
+-- Sentinel PortfolioOS — seed data (Mohamed Elhalabi)
 -- ---------------------------------------------------------------------------
 -- Run AFTER schema.sql. Safe to re-run: it clears the content tables first.
--- The content mirrors the demo fixtures used in zero-config mode and is
--- honest, portfolio-safe sample data for a cybersecurity/full-stack student.
--- Replace the placeholder links and personal details with your own.
+-- This mirrors the zero-config demo data and contains honest, real content.
+-- Source/demo links are intentionally blank until each project is published.
 -- ===========================================================================
 
--- Audit triggers fire on these inserts; clear logs too so the seed is clean.
 truncate table project_sections, projects, skills, experience,
   certifications, testimonials, contact_messages, audit_logs restart identity cascade;
 delete from profiles;
@@ -18,49 +16,45 @@ delete from site_settings;
 -- ---------------------------------------------------------------------------
 insert into profiles (full_name, headline, bio, location, email, github_url, linkedin_url, website_url)
 values (
-  'Alex Rivera',
-  'Cybersecurity & Full-Stack Engineer (Student)',
-  'I''m a final-year computing student focused on the overlap between secure systems and well-built software. I learn by building: hardened labs, security tooling, and full-stack apps that I document as real case studies. I care about honest engineering — shipping things that work, understanding the trade-offs, and being clear about what I do and don''t yet know.',
-  'Remote · Europe',
-  'alex.rivera@example.com',
-  'https://github.com/your-handle',
-  'https://www.linkedin.com/in/your-handle',
-  'https://your-domain.example.com'
+  'Mohamed Elhalabi',
+  'Network, Infrastructure & Cybersecurity Graduate',
+  'I''m a newly graduated engineer from Jönköping University with a BSc in Network, Infrastructure and Cybersecurity. I''m tech-focused and service-oriented, with hands-on experience troubleshooting technical problems and supporting users directly at a high tempo — structured, and comfortable juggling several tickets at once without losing quality. I''m based in Jönköping, Sweden, fluent in Swedish, English and Arabic, and motivated to keep growing in IT, infrastructure and cybersecurity. I learn by building, so I ship and document real projects.',
+  'Jönköping, Sweden',
+  'mohammadhalabi777@gmail.com',
+  null, null, null
 );
 
 insert into site_settings (id, hero_kicker, hero_title, hero_subtitle, hero_cta_label, available_for_work, ai_assistant_enabled, contact_email)
 values (
   true,
-  'Cybersecurity · Full-Stack',
+  'Network · Infrastructure · Cybersecurity',
   'Turn projects into proof.',
-  'I''m Alex — a cybersecurity and full-stack student. This is my portfolio operating system: polished case studies, verifiable skills, and the labs behind them.',
-  'View case studies',
+  'I''m Mohamed — a Network, Infrastructure & Cybersecurity graduate from Jönköping University. I learn by building: secure web apps, IT-support tooling, and networking labs, each documented as an honest case study.',
+  'View my projects',
   true, true,
-  'alex.rivera@example.com'
+  'mohammadhalabi777@gmail.com'
 );
 
 -- ---------------------------------------------------------------------------
 -- Projects
 -- ---------------------------------------------------------------------------
-insert into projects (slug, title, short_description, scope, category, status, difficulty, tech_stack, github_url, demo_url, featured, sort_order, created_at, updated_at) values
-('sentinel-helpdesk-ai','Sentinel Helpdesk AI','An AI-assisted internal helpdesk that triages IT tickets, drafts replies, and keeps a human approver in the loop.','Portfolio project (MVP)','full_stack','live','advanced',
-  array['Next.js','TypeScript','PostgreSQL','Supabase','Anthropic API','Tailwind CSS','Zod'],
-  'https://github.com/your-handle/sentinel-helpdesk-ai','https://sentinel-helpdesk-ai.example.com',true,1,'2025-11-02','2026-02-18'),
-('sentinel-webguard','Sentinel WebGuard','A self-hosted web app scanner that checks security headers, TLS configuration, and common misconfigurations, then explains each finding.','Portfolio project (work in progress)','cybersecurity','in_progress','advanced',
-  array['Node.js','TypeScript','Next.js','PostgreSQL','Docker','OWASP ZAP'],
-  'https://github.com/your-handle/sentinel-webguard','https://sentinel-webguard.example.com',true,2,'2026-01-12','2026-05-30'),
-('linux-sysadmin-lab','Linux System Administration Lab','A hardened, reproducible Linux server lab with automated provisioning, monitoring, and documented baseline hardening.','Self-directed lab','infrastructure','completed','intermediate',
-  array['Linux','Ubuntu Server','Bash','Ansible','nftables','systemd','Prometheus'],
-  'https://github.com/your-handle/linux-sysadmin-lab',null,false,3,'2025-09-15','2025-12-01'),
-('gdpr-compliance-toolkit','GDPR Compliance Toolkit','A practical toolkit and reference app that maps a small web product to core GDPR obligations, with data-flow mapping and a request workflow.','Coursework project','compliance','completed','intermediate',
-  array['Next.js','TypeScript','PostgreSQL','Markdown','Zod'],
-  'https://github.com/your-handle/gdpr-compliance-toolkit','https://gdpr-toolkit.example.com',false,4,'2025-10-20','2026-01-08'),
-('network-security-lab','Network Security Lab','A segmented home-lab network with a firewall, IDS, and VPN, used to practise monitoring, detection, and incident triage safely.','Self-directed lab','cybersecurity','completed','advanced',
-  array['pfSense','Suricata','WireGuard','VLANs','Wireshark','Linux'],
-  'https://github.com/your-handle/network-security-lab',null,false,5,'2025-08-10','2025-11-20'),
+insert into projects (slug, title, short_description, scope, category, status, difficulty, tech_stack, screenshots, github_url, demo_url, featured, sort_order, created_at, updated_at) values
+('sentinel-helpdesk-ai','Sentinel Helpdesk AI','A secure, AI-assisted support-ticket platform for small businesses: capture every message, summarise it, and draft a reply the owner approves.','Portfolio project (MVP)','full_stack','live','advanced',
+  array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Resend','Anthropic / OpenAI'],
+  array['/screenshots/sentinel-helpdesk-ai/dashboard.png','/screenshots/sentinel-helpdesk-ai/tickets-list.png','/screenshots/sentinel-helpdesk-ai/ticket-detail.png','/screenshots/sentinel-helpdesk-ai/reply-composer.png'],
+  null,null,true,1,'2025-11-02','2026-06-10'),
+('sentinel-webguard','Sentinel WebGuard','A safe, passive website trust, security-header, email-DNS and GDPR-readiness checkup that turns public signals into a 0–100 score with plain-language fixes.','Portfolio project (MVP)','cybersecurity','in_progress','advanced',
+  array['Next.js','TypeScript','Tailwind CSS','Node.js','Zod'],
+  array[]::text[],
+  null,null,true,2,'2026-01-12','2026-06-12'),
 ('sentinel-portfolioos','Sentinel PortfolioOS','The portfolio platform you''re reading now — a public case-study site plus a private admin CMS, built to run with zero config and upgrade to a live database.','Portfolio project (this site)','full_stack','live','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Anthropic API'],
-  'https://github.com/your-handle/sentinel-portfolioos','https://sentinel-portfolioos.example.com',true,6,'2026-03-01','2026-06-20');
+  array[]::text[],
+  null,null,true,3,'2026-03-01','2026-06-20'),
+('networking-infrastructure-labs','Networking & Infrastructure Labs','University coursework designing, configuring and troubleshooting networks and IT infrastructure with Cisco Packet Tracer and virtualised Windows/Linux hosts.','University coursework','infrastructure','completed','intermediate',
+  array['Cisco Packet Tracer','Cisco IOS','VLANs','Routing & Switching','Windows Server','Linux','VirtualBox'],
+  array[]::text[],
+  null,null,false,4,'2024-02-01','2025-12-01');
 
 -- ---------------------------------------------------------------------------
 -- Project sections (linked by slug)
@@ -70,119 +64,92 @@ select id, v.kind::section_kind, v.heading, v.body, v.sort_order
 from projects p
 join (values
   -- Helpdesk AI
-  ('sentinel-helpdesk-ai','problem','Problem','Small IT teams spend a large share of their day on repetitive first-line tickets. I wanted to see whether an LLM could speed up triage without removing human judgement or leaking sensitive data.',1),
-  ('sentinel-helpdesk-ai','solution','Solution','Every inbound message is classified by category and urgency, then the model drafts a suggested reply grounded in a small internal knowledge base. Nothing is sent automatically: an agent reviews, edits, and approves each draft. A fallback template engine keeps the queue usable when the AI provider is unavailable.',2),
-  ('sentinel-helpdesk-ai','tech','How it''s built','Next.js App Router with server actions for all writes, PostgreSQL via Supabase for storage and RLS, and the Anthropic API for classification and drafting. Inputs are validated with Zod on the client and the server.',3),
-  ('sentinel-helpdesk-ai','features','Key features',E'- Automatic ticket classification by category and urgency\n- AI-drafted replies grounded in a small knowledge base\n- Human-in-the-loop approval before anything is sent\n- Status, assignment, and an append-only audit trail\n- Graceful fallback to templates when the AI is unavailable',4),
-  ('sentinel-helpdesk-ai','security','Security considerations','The model only receives the ticket text plus a curated knowledge snippet — never the full database. API keys live in server-only env vars. RLS restricts rows to authenticated staff. AI output is treated as an untrusted draft and rendered as plain text, never raw HTML.',5),
-  ('sentinel-helpdesk-ai','learned','What I learned','Designing the human-in-the-loop boundary was the hard part, not the model call. I learned to make the safe default the easy path and to thread Zod validation through server actions so the database never trusts client input.',6),
-  ('sentinel-helpdesk-ai','screenshots','Screenshots','Screenshots coming soon — ticket queue, draft-review panel, and audit timeline.',7),
-  ('sentinel-helpdesk-ai','future','Future improvements',E'- Ingest tickets directly from email and Slack\n- Per-team knowledge bases with citations in each draft\n- Resolution-time and SLA analytics\n- Role-based access for agents vs. approvers\n- An evaluation harness for prompt changes',8),
+  ('sentinel-helpdesk-ai','problem','Problem','Small businesses lose time and customers because messages are scattered across email, web forms, Instagram and phone notes — answered late, forgotten, or handled without a clear status. I wanted a single place that captures every message as a tracked ticket so nothing slips through the cracks.',1),
+  ('sentinel-helpdesk-ai','solution','Solution','Sentinel captures each message as a ticket, uses AI to summarise the problem and assign a priority, category and sentiment, and drafts a professional reply the owner reviews and approves before it is sent. A clear status workflow keeps everything moving. It runs in a demo mode with no keys required, and uses real providers when configured.',2),
+  ('sentinel-helpdesk-ai','tech','How it''s built','Next.js App Router with TypeScript and Tailwind CSS, Supabase (Postgres + Auth), and Zod validation on the client and server. Email goes through Resend with a mock fallback, and an AI provider abstraction can use Anthropic Claude, OpenAI, or a mock — so the app is fully demo-able with zero setup.',3),
+  ('sentinel-helpdesk-ai','features','Key features',E'- Per-business support form with Zod validation and rate limiting\n- Public ticket lookup by reference code\n- Admin dashboard: new today, open, urgent, solved this week\n- Ticket detail with a conversation timeline and internal notes\n- AI summary, category and sentiment, plus an editable suggested reply (draft only)\n- Status workflow and knowledge snippets fed to the AI as context\n- Business settings with role checks and an audit log of admin actions',4),
+  ('sentinel-helpdesk-ai','security','Security considerations','Inputs are validated with Zod on the client and re-checked on the server, and the support form is rate limited. AI output is always treated as a draft the human approves — never sent automatically. Admin areas are role-checked, important actions are written to an audit log, and API keys stay server-side. It is a security-conscious MVP, not a guarantee.',5),
+  ('sentinel-helpdesk-ai','learned','What I learned','Building the human-in-the-loop approval flow taught me to make the safe path the default. The provider abstraction (real AI/email or mocks) made the app demo-able with zero setup, which I now treat as a feature rather than an afterthought.',6),
+  ('sentinel-helpdesk-ai','screenshots','Screenshots','From the live demo workspace — dashboard, ticket list, ticket detail, and the reply composer.',7),
+  ('sentinel-helpdesk-ai','future','Future improvements',E'- Direct email and Instagram message ingestion\n- Per-business analytics on response and resolution time\n- Saved reply templates\n- Multi-language replies (useful for Swedish + English support)\n- Tighter role-based access for agents vs. owners',8),
   -- WebGuard
-  ('sentinel-webguard','problem','Problem','Auditing my own side projects I kept finding the same low-hanging issues: missing security headers, weak CSPs, and default TLS settings. I wanted a tool that not only flags issues but teaches why they matter.',1),
-  ('sentinel-webguard','solution','Solution','WebGuard runs read-only, non-intrusive checks against a target you own: security headers, cookie flags, TLS configuration, and common misconfigurations. Each finding includes a severity, a plain-language explanation, and a remediation snippet, with history over time.',2),
-  ('sentinel-webguard','tech','How it''s built','A TypeScript scanning engine normalises results into a typed findings model; a Next.js dashboard renders reports. Scans run in Docker for reproducibility, with an optional OWASP ZAP baseline pass.',3),
-  ('sentinel-webguard','features','Key features',E'- HTTP security-header and cookie-flag checks\n- TLS protocol and cipher inspection\n- Detection of common misconfiguration patterns\n- Severity, plain-language explanation, and remediation per finding\n- Scan history to track improvement over time\n- Optional OWASP ZAP baseline pass',4),
-  ('sentinel-webguard','security','Security considerations','Scoped to passive, non-destructive checks; the user confirms ownership before scanning. It is a learning and self-audit tool, not an attack tool, and makes no claim that a site is "secure". The engine has no write access to scanned systems.',5),
-  ('sentinel-webguard','learned','What I learned','How much nuance sits behind "just add the header" — for example how a strict CSP interacts with real apps. Writing remediation copy forced me to understand each control rather than copy a checklist.',6),
-  ('sentinel-webguard','screenshots','Screenshots','Screenshots coming soon — scan report, severity breakdown, and remediation detail.',7),
-  ('sentinel-webguard','future','Future improvements',E'- Authenticated scans with explicit ownership consent\n- Scheduled re-scans with diffing to highlight regressions\n- Export reports to PDF and CSV\n- A dedicated CSP analyzer and mixed-content checks\n- A CI mode that fails builds on new high-severity findings',8),
-  -- Linux lab
-  ('linux-sysadmin-lab','problem','Problem','I wanted real, repeatable practice administering Linux servers — a lab I could tear down and rebuild from scratch, with hardening applied consistently rather than ad hoc.',1),
-  ('linux-sysadmin-lab','solution','Solution','An Ansible-provisioned lab of Ubuntu Server VMs (bastion, web, database). Playbooks apply a documented baseline: SSH key-only auth, least-privilege sudo, default-deny nftables, automatic updates, and Prometheus monitoring. Everything rebuilds with one command.',2),
-  ('linux-sysadmin-lab','tech','How it''s built','Ansible roles for provisioning and configuration; Bash for bootstrap and teardown; nftables with an explicit allow-list; systemd unit hardening; Prometheus with node_exporter.',3),
-  ('linux-sysadmin-lab','features','Key features',E'- Ansible-provisioned bastion, web, and database hosts\n- SSH key-only authentication and least-privilege sudo\n- Default-deny nftables firewall with an explicit allow-list\n- Automatic security updates and systemd unit hardening\n- Prometheus + node_exporter monitoring\n- One-command rebuild and teardown, all in version control',4),
-  ('linux-sysadmin-lab','security','Security considerations','The baseline follows widely-published hardening guidance, with each control documented and auditable. It is a learning lab — a sensible baseline, not a guarantee — and I note where production would need more (central logging, secrets management, IDS).',5),
-  ('linux-sysadmin-lab','learned','What I learned','Idempotency changed how I think about config: a playbook you can run twice safely beats a clever one-liner. I learned to adapt hardening guides critically and document the reasoning.',6),
-  ('linux-sysadmin-lab','screenshots','Screenshots','Screenshots coming soon — Ansible run output, firewall ruleset, and Prometheus dashboard.',7),
-  ('linux-sysadmin-lab','future','Future improvements',E'- Centralised logging with Loki and structured log shipping\n- Secrets management with Vault\n- Host intrusion detection (Wazuh or Falco)\n- Automated CIS-benchmark scoring\n- A generated compliance report after each provisioning run',8),
-  -- GDPR
-  ('gdpr-compliance-toolkit','problem','Problem','Privacy regulation feels abstract until you apply it to a real product. As coursework I translated GDPR principles into concrete, engineer-facing tasks for a small SaaS-style app.',1),
-  ('gdpr-compliance-toolkit','solution','Solution','A data-flow map plus a reference app implementing the mechanics: a consent record, a data-subject access request workflow, an export-my-data endpoint, and a documented retention policy — each linked to the principle it serves.',2),
-  ('gdpr-compliance-toolkit','tech','How it''s built','A Next.js app stores consent and request records in PostgreSQL. Exports are generated server-side and validated with Zod. The written analysis lives as version-controlled Markdown.',3),
-  ('gdpr-compliance-toolkit','features','Key features',E'- A data-flow map of a sample product''s personal data\n- Consent records with the lawful basis captured\n- A data-subject access request (DSAR) workflow\n- An authenticated export-my-data endpoint\n- A documented, enforceable retention policy\n- Each feature linked to the GDPR principle it serves',4),
-  ('gdpr-compliance-toolkit','security','Security & privacy considerations','Privacy by design drove the data model: collect the minimum, record the lawful basis, make erasure first-class. Access requests are authenticated and logged. This is an educational reference, not legal advice — documented explicitly.',5),
-  ('gdpr-compliance-toolkit','learned','What I learned','Compliance is mostly good engineering discipline made explicit: know your data, minimise it, be able to delete it. Mapping features to principles gave me vocabulary for talking to non-engineers about privacy.',6),
-  ('gdpr-compliance-toolkit','screenshots','Screenshots','Screenshots coming soon — data-flow map, DSAR workflow, and data-export view.',7),
-  ('gdpr-compliance-toolkit','future','Future improvements',E'- Automated retention and erasure jobs on a schedule\n- Consent versioning with a full change audit\n- A reusable cookie-consent banner integration\n- An admin dashboard for data-subject requests\n- A Data Protection Impact Assessment (DPIA) template',8),
-  -- Netsec lab
-  ('network-security-lab','problem','Problem','Reading about network security only goes so far. I wanted a safe, isolated environment to segment a network, generate realistic traffic, and see detection rules fire — without touching production systems.',1),
-  ('network-security-lab','solution','Solution','A segmented lab with VLANs (trusted, IoT, lab) behind a pfSense firewall. Suricata runs as an IDS, WireGuard provides remote access, and intentionally vulnerable VMs generate traffic. I practised reading alerts and pivoting into packet captures.',2),
-  ('network-security-lab','tech','How it''s built','pfSense for routing, firewalling, and VLAN segmentation; Suricata with community plus custom rules; WireGuard for secure management; Wireshark and tcpdump for packet analysis — all inside the isolated lab.',3),
-  ('network-security-lab','features','Key features',E'- VLAN segmentation (trusted, IoT, and lab zones) behind pfSense\n- Suricata IDS with community plus custom signatures\n- WireGuard for secure remote management\n- Intentionally vulnerable VMs for safe, realistic traffic\n- A Wireshark/tcpdump packet-analysis workflow\n- Written triage notes for each detection scenario',4),
-  ('network-security-lab','security','Security considerations','Isolation was the first design goal: vulnerable VMs cannot reach the internet or my home network. All testing targets machines I own inside the lab, with segmentation and firewall rules documented.',5),
-  ('network-security-lab','learned','What I learned','Detection is only useful if you can interpret it. I learned to move from an IDS alert to the underlying packets and form a hypothesis, and how much tuning real detection needs.',6),
-  ('network-security-lab','screenshots','Screenshots','Screenshots coming soon — network topology, Suricata alerts, and a Wireshark walkthrough.',7),
-  ('network-security-lab','future','Future improvements',E'- Aggregate logs and alerts into a SIEM (Security Onion or ELK)\n- Automated alert enrichment with threat-intel lookups\n- A wider library of safe attack scenarios\n- Metrics for detection-rule tuning and false-positive rates\n- Full lab-as-code so the network rebuilds automatically',8),
-  -- PortfolioOS (this site)
-  ('sentinel-portfolioos','problem','Problem','Most student portfolios are a flat list of repository links — they don''t show how you think or let you keep them current. I wanted a portfolio that presents work as structured case studies and is managed through a dashboard, not by editing code.',1),
+  ('sentinel-webguard','problem','Problem','Small businesses rarely know whether their website looks trustworthy and is configured sensibly. Existing tools are intimidating, "scary-marketing" driven, or behave like attack tools. I wanted a helpful, ethical checkup that explains business impact first and never overclaims.',1),
+  ('sentinel-webguard','solution','Solution','WebGuard scans a site using only public, passive signals — no attacking, logins, or port scanning — and turns them into a 0–100 score with plain-language fixes a non-technical owner can act on. Every finding includes the evidence, a clear explanation, and one recommended fix.',2),
+  ('sentinel-webguard','tech','How it''s built','A TypeScript scanning engine with a transparent, weighted scoring model sits behind a Next.js + Tailwind dashboard. The core logic is unit-tested (58 passing tests) and the project is written in strict TypeScript.',3),
+  ('sentinel-webguard','features','What it checks',E'- HTTPS & TLS — reachability, HTTP→HTTPS redirect, certificate validity\n- Security headers — HSTS, CSP, X-Content-Type-Options, clickjacking, Referrer- and Permissions-Policy\n- DNS & email trust — SPF, DMARC, MX (DKIM noted as a manual check)\n- Cookie safety — Secure / HttpOnly / SameSite attributes only (never values)\n- GDPR & trust signals — privacy policy, cookie notice, security.txt, contact info\n- SEO & professionalism basics, rolled into a prioritised 0–100 report',4),
+  ('sentinel-webguard','security','Why it''s safe & ethical','This is deliberately not a penetration-testing tool — it won''t exploit, brute force, fuzz, scan ports, log in, or crawl aggressively. The scanner is hardened against SSRF: only http/https, rejects private/reserved IPs (including decimal/hex/octal encodings), resolves DNS and blocks private addresses (DNS-rebinding defence), and re-validates every redirect hop, with strict timeouts and a response-size cap. It never claims a site is "secure".',5),
+  ('sentinel-webguard','learned','What I learned','Writing the SSRF defences and the per-hop redirect re-validation made me understand a whole class of server-side request risks properly. Encoding the "passive-only" boundary as an explicit rule kept the tool honest and ethical.',6),
+  ('sentinel-webguard','screenshots','Screenshots','Screenshots coming soon — the scored report and the per-finding detail with evidence and a recommended fix.',7),
+  ('sentinel-webguard','future','Future improvements',E'- Authenticated checks (only with the owner''s explicit consent)\n- Scheduled re-scans with diffing to highlight regressions\n- PDF/CSV export to hand a clear report to a client\n- A dedicated CSP analyzer and mixed-content checks\n- A lead-capture flow for offering paid cleanup work',8),
+  -- PortfolioOS
+  ('sentinel-portfolioos','problem','Problem','Most student portfolios are a flat list of repository links. They don''t show how you think, they''re awkward to keep current, and they rarely surface the security reasoning employers in this field look for. I wanted a portfolio that presents work as structured case studies and is managed through a dashboard, not by editing code.',1),
   ('sentinel-portfolioos','solution','Solution','A platform with a polished public site and an authenticated admin CMS. A repository layer serves built-in seed data with zero configuration and switches to Supabase when credentials are present, so it demos instantly and becomes a real CMS later — with no code changes.',2),
   ('sentinel-portfolioos','tech','How it''s built','Next.js App Router with Server Actions, TypeScript in strict mode, and Tailwind CSS. Supabase provides Postgres, Auth, and Row-Level Security. Zod schemas are shared client/server, with an optional Anthropic writing assistant that has a deterministic fallback.',3),
   ('sentinel-portfolioos','features','Key features',E'- A public case-study site (home, projects, skills, about, experience, certifications, contact, CV)\n- A private admin dashboard with full create/edit/delete\n- A hybrid data layer: zero-config demo data that upgrades to a live Supabase CMS\n- An AI case-study assistant with honesty guardrails and a no-API fallback\n- A contact form with client + server validation, a honeypot, rate limiting, and hashed IPs\n- Light/dark themes and database audit logging',4),
-  ('sentinel-portfolioos','security','Security considerations','Shared Zod validation runs on the client and is re-checked on the server, so the database never trusts client input. Supabase Auth with Row-Level Security enforces access at the database, an audit-logging trigger records every change, and stored content is rendered as escaped text. A sensible baseline documented honestly — not a guarantee.',5),
-  ('sentinel-portfolioos','learned','What I learned','Designing the demo-to-Supabase seam taught me to think in interfaces rather than implementations. Threading Zod through Server Actions made "never trust the client" concrete. Writing the security docs forced me to genuinely understand each control instead of copying a checklist.',6),
+  ('sentinel-portfolioos','security','Security considerations','Shared Zod validation runs on the client and is re-checked on the server. Supabase Auth with Row-Level Security enforces access at the database, an audit-logging trigger records every change, and stored content is rendered as escaped text. Secret-touching modules import server-only so the build fails if one leaks into a client bundle. A security-conscious baseline documented honestly — not a guarantee.',5),
+  ('sentinel-portfolioos','learned','What I learned','Designing the demo-to-Supabase seam taught me to think in interfaces rather than implementations. Threading Zod through Server Actions made "never trust the client" concrete. Writing the security documentation forced me to genuinely understand each control instead of copying a checklist.',6),
   ('sentinel-portfolioos','screenshots','Screenshots','You''re looking at it — dedicated screenshots of the homepage, a case study, and the admin dashboard are coming soon.',7),
-  ('sentinel-portfolioos','future','Future improvements',E'- Screenshot uploads via Supabase Storage with alt text\n- Email notifications for new contact messages\n- Shared-store rate limiting (Upstash Redis) plus a CAPTCHA\n- Project search and tag filtering\n- Server-generated PDF export of the CV',8)
+  ('sentinel-portfolioos','future','Future improvements',E'- Screenshot uploads via Supabase Storage with alt text\n- Email notifications for new contact messages\n- Shared-store rate limiting (Upstash Redis) plus a CAPTCHA\n- Project search and tag filtering\n- Server-generated PDF export of the CV',8),
+  -- Networking labs
+  ('networking-infrastructure-labs','problem','Problem','My degree is built around networks and infrastructure, and I wanted repeatable, hands-on practice rather than just theory — designing, configuring and troubleshooting networks I could rebuild from scratch.',1),
+  ('networking-infrastructure-labs','solution','Solution','Across my coursework I designed and configured networks in Cisco Packet Tracer and on virtual machines: VLANs and segmentation, routing and switching, wireless, and basic services — then practised troubleshooting when things broke. I also administered Windows and Linux hosts in virtualised labs.',2),
+  ('networking-infrastructure-labs','tech','How it''s built','Cisco Packet Tracer and Cisco IOS for network design and configuration; VLANs, routing & switching, and wireless; Windows Server and Linux administration; and virtualization with VirtualBox for isolated, rebuildable labs.',3),
+  ('networking-infrastructure-labs','features','What I practised',E'- VLAN segmentation and inter-VLAN routing\n- Routing and switching configuration\n- Wireless setup and basic network services\n- Windows and Linux host administration\n- Structured troubleshooting of broken topologies\n- Documented lab notes I can rebuild from',4),
+  ('networking-infrastructure-labs','security','Security considerations','Network segmentation and least-privilege access were recurring themes — keeping zones separated and understanding where trust boundaries sit. Everything ran in isolated labs I own; nothing touched production or third-party systems.',5),
+  ('networking-infrastructure-labs','learned','What I learned','Troubleshooting taught me to work methodically from symptom to cause instead of guessing. Segmentation became a practical control I can reason about, not just a diagram on a slide.',6),
+  ('networking-infrastructure-labs','screenshots','Screenshots','Screenshots coming soon — a sample Packet Tracer topology and lab notes.',7),
+  ('networking-infrastructure-labs','future','Future improvements',E'- Rebuild key labs as clean, documented, repeatable configs\n- Add monitoring to the lab hosts\n- Map each lab to the security controls and hardening baselines it demonstrates',8)
 ) as v(slug, kind, heading, body, sort_order) on v.slug = p.slug;
 
 -- ---------------------------------------------------------------------------
 -- Skills
 -- ---------------------------------------------------------------------------
 insert into skills (name, category, proficiency, note, sort_order) values
-('Web app security (OWASP Top 10)','cybersecurity',4,'Headers, injection, auth flaws',1),
-('Network security & segmentation','cybersecurity',4,'Firewalls, VLANs, IDS',2),
-('Threat modelling','cybersecurity',3,'STRIDE, data-flow diagrams',3),
-('Incident triage & log analysis','cybersecurity',3,null,4),
-('Cryptography fundamentals','cybersecurity',3,'TLS, hashing, key handling',5),
-('React','frontend',4,'Hooks, server components',1),
-('Next.js (App Router)','frontend',4,null,2),
+('Cyber & information security','cybersecurity',4,'Degree focus',1),
+('Network security & segmentation','cybersecurity',4,'VLANs, zoning, firewalls',2),
+('Secure-by-design web apps','cybersecurity',3,'SSRF defence, headers, validation',3),
+('Security headers & TLS basics','cybersecurity',3,'HSTS, CSP, cookies',4),
+('Phishing & social-engineering awareness','cybersecurity',3,null,5),
+('Next.js (App Router)','frontend',4,'Built 3 real apps',1),
+('React','frontend',4,null,2),
 ('TypeScript','frontend',4,null,3),
 ('Tailwind CSS','frontend',4,null,4),
-('Accessibility (WCAG basics)','frontend',3,'Keyboard, ARIA, contrast',5),
-('Node.js','backend',4,null,1),
-('REST API design','backend',3,null,2),
-('Server-side validation (Zod)','backend',4,null,3),
-('Authentication & sessions','backend',3,'OAuth, JWT, cookies',4),
-('PostgreSQL','databases',4,'Schema design, indexes',1),
+('Supabase (Auth + Postgres)','backend',4,null,1),
+('Server-side validation (Zod)','backend',4,'Client + server',2),
+('Node.js','backend',3,null,3),
+('Python (scripting)','backend',3,'Automation',4),
+('REST / Server Actions','backend',3,null,5),
+('PostgreSQL','databases',3,'Schema design',1),
 ('Row-Level Security','databases',3,'Supabase / Postgres RLS',2),
-('SQL & query optimisation','databases',3,null,3),
-('Git & GitHub','tools',4,null,1),
-('Docker','tools',3,null,2),
-('Ansible','tools',3,null,3),
-('Wireshark','tools',3,null,4),
-('Burp Suite (basics)','tools',2,null,5),
-('Linux (Ubuntu/Debian)','operating_systems',4,'Admin & hardening',1),
-('Windows administration','operating_systems',3,null,2),
-('Bash scripting','operating_systems',3,null,3);
+('SQL','databases',3,null,3),
+('Cisco Packet Tracer','tools',4,'Network design & labs',1),
+('Routing & switching (Cisco)','tools',3,'WAN, VLANs, wireless',2),
+('Troubleshooting & technical support','tools',4,'Ticket handling',3),
+('Virtualization (VirtualBox/Parallels)','tools',3,null,4),
+('Git & GitHub','tools',3,null,5),
+('Windows administration','operating_systems',4,null,1),
+('Linux (Ubuntu/Debian)','operating_systems',3,null,2),
+('Bash / shell scripting','operating_systems',3,null,3),
+('Cloud services & virtualization','operating_systems',3,null,4);
 
 -- ---------------------------------------------------------------------------
--- Experience
+-- Experience (real — work + education)
 -- ---------------------------------------------------------------------------
 insert into experience (role, organization, location, start_date, end_date, summary, highlights, sort_order) values
-('BSc Computing (Cybersecurity pathway)','University coursework & self-directed labs','Europe','2023-09-01',null,
- 'Final-year student combining formal coursework with a steady stream of self-built labs and projects, each documented as a case study.',
- array['Modules in network security, secure software development, databases, and operating systems','Built and documented six portfolio projects','Maintain a reproducible home lab for hands-on security practice'],1),
-('Freelance web projects (small clients)','Self-employed','Remote','2024-06-01',null,
- 'Occasional freelance work building small marketing sites and internal tools, with an emphasis on accessible, maintainable code.',
- array['Delivered responsive sites with Next.js and Tailwind CSS','Set up basic CI, environment hygiene, and documentation','Practised translating non-technical requirements into clear scope'],2),
-('Volunteer IT support','Local community organisation','On-site','2023-02-01','2024-05-01',
- 'Helped a small non-profit keep its devices and accounts running smoothly, which sparked my interest in helpdesk automation.',
- array['Triaged everyday IT issues for non-technical staff','Wrote short how-to guides to reduce repeat questions','Inspired the Sentinel Helpdesk AI project'],3);
+('Retail Associate — Checkout & Online Orders','Stora Coop','Sweden','2025-08-01',null,
+ 'Customer-facing retail role combining checkout service with accurate online order fulfilment.',
+ array['Help customers daily with a service-minded, professional approach','Pick online customer orders with a focus on accuracy, structure and on-time delivery','Comfortable with high-tempo customer contact and resolving questions on the spot'],1),
+('IT Technician / Technical Support','O-Ringen (one of Sweden''s largest sporting events)','Jönköping, Sweden','2025-07-01','2025-08-01',
+ 'Provided fast, hands-on technical support to staff during a large-scale event, keeping systems and networks running.',
+ array['Installed, troubleshot and maintained IT equipment so networks, computers and systems stayed stable throughout the event','Worked at a high tempo on many parallel tickets, prioritising solutions around each user''s needs','Gave direct, on-site support to staff under real time pressure'],2),
+('BSc — Network, Infrastructure & Cybersecurity','School of Engineering, Jönköping University','Jönköping, Sweden','2023-09-01','2026-06-01',
+ 'Bachelor''s degree focused on the design, operation and security of IT infrastructure and networks.',
+ array['Network technology, systems administration, cybersecurity and troubleshooting of complex IT environments','Hands-on labs with Cisco Packet Tracer, virtualization, and Linux/Windows administration','Built and documented several projects applying these skills'],3),
+('Teknikprogrammet (Technology Programme)','Tranemo Gymnasieskola','Tranemo, Sweden','2020-08-01','2023-06-01',
+ 'Upper-secondary technology programme — a foundation in mathematics, programming and technology.',
+ array[]::text[],4);
 
 -- ---------------------------------------------------------------------------
--- Certifications
+-- Certifications & testimonials: intentionally empty (none on the CV yet).
+-- Add real, verifiable entries from the admin dashboard as you earn them.
 -- ---------------------------------------------------------------------------
-insert into certifications (name, issuer, status, issued_on, credential_url, sort_order) values
-('CompTIA Security+','CompTIA','in_progress',null,null,1),
-('CompTIA Network+','CompTIA','earned','2025-04-01','https://www.credly.com/users/your-handle',2),
-('Google Cybersecurity Certificate','Google / Coursera','earned','2024-11-01','https://www.coursera.org/account/accomplishments',3),
-('TryHackMe — SOC Level 1 path','TryHackMe','in_progress',null,null,4),
-('OSCP','OffSec','planned',null,null,5);
-
--- ---------------------------------------------------------------------------
--- Testimonials
--- ---------------------------------------------------------------------------
-insert into testimonials (author, role, quote, approved, sort_order) values
-('J. Okafor','Module lecturer, Secure Software Development','Alex consistently went beyond the brief — the GDPR coursework was one of the clearest mappings from principle to implementation I saw in the cohort.',true,1),
-('M. Lindqvist','Small-business owner (freelance client)','Reliable and easy to work with. Alex explained the trade-offs in plain language and handed over something I could actually maintain.',true,2),
-('Peer review, study group','Fellow student','The home lab write-ups are genuinely useful — I used the hardening notes as a checklist for my own setup.',true,3);

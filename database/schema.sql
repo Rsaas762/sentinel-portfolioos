@@ -90,6 +90,7 @@ create table if not exists projects (
   status            project_status not null default 'in_progress',
   difficulty        project_difficulty not null default 'intermediate',
   tech_stack        text[] not null default '{}',
+  screenshots       text[] not null default '{}',
   github_url        text,
   demo_url          text,
   cover_image       text,

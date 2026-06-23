@@ -3,6 +3,7 @@ import { Download, Globe, Mail, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons/social";
 import { getRepo } from "@/lib/data";
 import { SKILL_CATEGORIES } from "@/lib/data/types";
+import { SEED_LANGUAGES } from "@/lib/data/seed/content";
 import { SKILL_CATEGORY_LABELS, CERT_STATUS_LABELS } from "@/lib/labels";
 import { Button } from "@/components/ui/button";
 import { PrintButton } from "@/components/public/print-button";
@@ -143,18 +144,26 @@ export default async function CvPage() {
           </ul>
         </Section>
 
-        <Section title="Certifications">
-          <ul className="space-y-1 text-sm text-muted-foreground">
-            {certs.map((c) => (
-              <li key={c.id}>
-                {c.name} · {c.issuer}{" "}
-                <span className="text-xs">
-                  ({CERT_STATUS_LABELS[c.status]}
-                  {c.issued_on ? `, ${formatMonthYear(c.issued_on)}` : ""})
-                </span>
-              </li>
-            ))}
-          </ul>
+        {certs.length > 0 ? (
+          <Section title="Certifications">
+            <ul className="space-y-1 text-sm text-muted-foreground">
+              {certs.map((c) => (
+                <li key={c.id}>
+                  {c.name} · {c.issuer}{" "}
+                  <span className="text-xs">
+                    ({CERT_STATUS_LABELS[c.status]}
+                    {c.issued_on ? `, ${formatMonthYear(c.issued_on)}` : ""})
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        ) : null}
+
+        <Section title="Languages">
+          <p className="text-sm text-muted-foreground">
+            {SEED_LANGUAGES.map((l) => `${l.name} (${l.level})`).join(" · ")}
+          </p>
         </Section>
       </article>
     </div>

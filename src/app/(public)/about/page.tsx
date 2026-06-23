@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, Code2, BookOpen, HeartHandshake, Quote } from "lucide-react";
+import {
+  ShieldCheck,
+  Code2,
+  BookOpen,
+  HeartHandshake,
+  Quote,
+  Languages as LanguagesIcon,
+} from "lucide-react";
 import { getRepo } from "@/lib/data";
+import { SEED_LANGUAGES } from "@/lib/data/seed/content";
 import { PageHeader } from "@/components/public/page-header";
 import { ProseText } from "@/components/prose-text";
 import { Button } from "@/components/ui/button";
@@ -9,7 +17,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "A cybersecurity and full-stack student who learns by building and documents the work honestly.",
+    "Network, Infrastructure & Cybersecurity graduate who learns by building and documents the work honestly.",
 };
 
 const VALUES = [
@@ -75,19 +83,40 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Languages */}
+      <section className="mt-16">
+        <h2 className="mb-6 flex items-center justify-center gap-2 text-xl font-semibold tracking-tight">
+          <LanguagesIcon className="size-5 text-primary" /> Languages
+        </h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {SEED_LANGUAGES.map((lang) => (
+            <div
+              key={lang.name}
+              className="rounded-lg border bg-card p-4 text-center"
+            >
+              <p className="font-medium">{lang.name}</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                {lang.level}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CV-ready summary */}
       <section className="mt-16 rounded-xl border bg-muted/30 p-6 sm:p-8">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
           CV-ready summary
         </p>
         <p className="mt-3 text-pretty leading-relaxed">
-          Cybersecurity and full-stack engineer (student) who learns by
-          building. Comfortable across the stack — Next.js, TypeScript,
-          PostgreSQL — with a security-first approach: input validation, least
-          privilege, and documented threat models. Maintains a reproducible home
-          lab and a portfolio of self-directed projects spanning security
-          tooling, infrastructure hardening, and accessible web apps. Seeking an
-          internship or junior role where I can keep shipping and learning.
+          Network, Infrastructure & Cybersecurity graduate (BSc, Jönköping
+          University) who learns by building. Hands-on with IT support,
+          networking (Cisco routing &amp; switching, VLANs), and Windows/Linux
+          administration, plus full-stack web development in Next.js, TypeScript
+          and Supabase — applied with a security-conscious approach: input
+          validation, least privilege, and honest documentation. Fluent in
+          Swedish, English and Arabic. Seeking a junior role or internship in IT,
+          infrastructure or cybersecurity where I can keep shipping and learning.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Button asChild size="sm">

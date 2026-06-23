@@ -94,6 +94,8 @@ export interface Project {
   status: ProjectStatus;
   difficulty: ProjectDifficulty;
   tech_stack: string[];
+  /** Public image paths (e.g. /screenshots/...). Empty = show placeholders. */
+  screenshots: string[];
   github_url: string | null;
   demo_url: string | null;
   cover_image: string | null;

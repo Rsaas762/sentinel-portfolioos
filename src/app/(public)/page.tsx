@@ -18,6 +18,7 @@ import { ProjectCard } from "@/components/public/project-card";
 import { TechChips } from "@/components/public/tech-chips";
 import { SKILL_CATEGORY_LABELS } from "@/lib/labels";
 import { SKILL_CATEGORIES } from "@/lib/data/types";
+import { SEED_LANGUAGES } from "@/lib/data/seed/content";
 
 export default async function HomePage() {
   const repo = getRepo();
@@ -41,13 +42,13 @@ export default async function HomePage() {
     (s) => s.kind === "security",
   );
 
+  const earnedCerts = certs.filter((c) => c.status === "earned").length;
   const stats = [
     { value: projects.length, label: "Case studies" },
     { value: skills.length, label: "Tracked skills" },
-    {
-      value: certs.filter((c) => c.status === "earned").length,
-      label: "Certifications",
-    },
+    earnedCerts > 0
+      ? { value: earnedCerts, label: "Certifications" }
+      : { value: SEED_LANGUAGES.length, label: "Languages" },
     { value: 6, label: "Skill domains" },
   ];
 

@@ -178,16 +178,32 @@ export default async function ProjectDetailPage({
                     <p className="mb-4 text-sm text-muted-foreground">
                       {section.body}
                     </p>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {[0, 1].map((i) => (
-                        <div
-                          key={i}
-                          className="flex aspect-video items-center justify-center rounded-lg border border-dashed bg-muted/30 text-muted-foreground"
-                        >
-                          <ImageIcon className="size-6 opacity-50" />
-                        </div>
-                      ))}
-                    </div>
+                    {project.screenshots.length > 0 ? (
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {project.screenshots.map((src, i) => (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            key={src}
+                            src={src}
+                            alt={`${project.title} screenshot ${i + 1}`}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full rounded-lg border bg-card shadow-sm"
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {[0, 1].map((i) => (
+                          <div
+                            key={i}
+                            className="flex aspect-video items-center justify-center rounded-lg border border-dashed bg-muted/30 text-muted-foreground"
+                          >
+                            <ImageIcon className="size-6 opacity-50" />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <ProseText text={section.body} />
