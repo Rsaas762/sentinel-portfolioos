@@ -54,7 +54,7 @@ insert into projects (slug, title, short_description, scope, category, status, d
 ('sentinel-portfolioos','Sentinel PortfolioOS','The portfolio platform you''re reading now — a public case-study site plus a private admin CMS, built to run with zero config and upgrade to a live database.','Portfolio project (this site)','full_stack','live','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Anthropic API'],
   array[]::text[],
-  null,null,true,3,'2026-03-01','2026-06-20'),
+  null,'https://sentinel-portfolioos.vercel.app',true,3,'2026-03-01','2026-06-20'),
 ('networking-infrastructure-labs','Networking & Infrastructure Labs','University coursework designing, configuring and troubleshooting networks and IT infrastructure with Cisco Packet Tracer and virtualised Windows/Linux hosts.','University coursework','infrastructure','completed','intermediate',
   array['Cisco Packet Tracer','Cisco IOS','VLANs','Routing & Switching','Windows Server','Linux','VirtualBox'],
   array[]::text[],

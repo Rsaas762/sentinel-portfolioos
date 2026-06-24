@@ -307,7 +307,7 @@ export const SEED_PROJECTS: Project[] = [
     ],
     screenshots: [],
     github_url: null,
-    demo_url: null,
+    demo_url: "https://sentinel-portfolioos.vercel.app",
     cover_image: null,
     featured: true,
     sort_order: 3,
