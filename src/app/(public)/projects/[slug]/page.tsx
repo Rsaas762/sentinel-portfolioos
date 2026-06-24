@@ -132,11 +132,6 @@ export default async function ProjectDetailPage({
             ) : null}
           </div>
         ) : null}
-        {project.demo_url || project.github_url ? (
-          <p className="mt-2 text-xs text-muted-foreground">
-            Demo and source links are placeholders in this sample data.
-          </p>
-        ) : null}
       </header>
 
       {/* At-a-glance meta + tech stack */}

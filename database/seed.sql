@@ -39,6 +39,10 @@ values (
 -- Projects
 -- ---------------------------------------------------------------------------
 insert into projects (slug, title, short_description, scope, category, status, difficulty, tech_stack, screenshots, github_url, demo_url, featured, sort_order, created_at, updated_at) values
+('svenljunga-bilcenter','Svenljunga Bilcenter — Dealership Website','A professional, conversion-focused marketing website for a Swedish car dealership — built as a real freelance project and now live.','Freelance client project','frontend','live','intermediate',
+  array['React','Vite','TypeScript','Tailwind CSS','Vercel'],
+  array['/screenshots/svenljunga-bilcenter/home-desktop.jpg','/screenshots/svenljunga-bilcenter/services-desktop.jpg','/screenshots/svenljunga-bilcenter/home-mobile.jpg'],
+  null,'https://svenljunga-bilcenter.vercel.app/',true,0,'2026-04-10','2026-06-22'),
 ('sentinel-helpdesk-ai','Sentinel Helpdesk AI','A secure, AI-assisted support-ticket platform for small businesses: capture every message, summarise it, and draft a reply the owner approves.','Portfolio project (MVP)','full_stack','live','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Resend','Anthropic / OpenAI'],
   array['/screenshots/sentinel-helpdesk-ai/dashboard.png','/screenshots/sentinel-helpdesk-ai/tickets-list.png','/screenshots/sentinel-helpdesk-ai/ticket-detail.png','/screenshots/sentinel-helpdesk-ai/reply-composer.png'],
@@ -63,6 +67,15 @@ insert into project_sections (project_id, kind, heading, body, sort_order)
 select id, v.kind::section_kind, v.heading, v.body, v.sort_order
 from projects p
 join (values
+  -- Svenljunga Bilcenter (live client project)
+  ('svenljunga-bilcenter','problem','Problem','Svenljunga Bilcenter, a local Swedish car dealership, needed a professional website that builds trust and turns visitors into leads — instead of relying only on a marketplace listing. The brief was to present their services clearly, make it easy to sell or value a car, and look credible to buyers.',1),
+  ('svenljunga-bilcenter','solution','Solution','A clean, fast, Swedish-language marketing site built around the dealership''s promise — "Din trygga bilaffär" (your trustworthy car deal). It leads with a strong hero, lays out the services clearly, makes "sell / value your car" the primary call to action, links the current stock from their Blocket store, and keeps contact details one tap away.',2),
+  ('svenljunga-bilcenter','tech','How it''s built','Built with React, Vite and TypeScript, styled with Tailwind CSS, and deployed on Vercel. The site is fully responsive and fast-loading, with clear semantic structure for SEO.',3),
+  ('svenljunga-bilcenter','features','Key features',E'- A bold hero with a clear value proposition and primary calls to action\n- Services overview: car sales, we-buy-your-car, free valuation, trade-in & pickup, financing, warranty and reconditioning\n- A "sell / value your car" flow as the main conversion path\n- Current inventory linked from the dealership''s Blocket store\n- Trust signals: finance and warranty partners, plus opening hours\n- Contact details (phone, email, address) and privacy & terms pages\n- A mobile-first, responsive layout',4),
+  ('svenljunga-bilcenter','security','Privacy & trust','As a marketing site it collects minimal personal data and ships with privacy-policy and terms pages, in line with Swedish/EU (GDPR-conscious) expectations. Enquiries go through clearly-labelled channels rather than over-collecting data — a privacy-aware build appropriate to a small local business.',5),
+  ('svenljunga-bilcenter','learned','What I learned','This was a real client project, about to be handed over to the dealership owner. The biggest lesson was translating a non-technical owner''s goals — look trustworthy, get more valuations and calls — into concrete design and copy decisions, and keeping the site simple enough for the business to rely on.',6),
+  ('svenljunga-bilcenter','screenshots','Screenshots','From the live site — the desktop home, the services section, and the mobile layout.',7),
+  ('svenljunga-bilcenter','future','Future improvements',E'- Live inventory on the site itself (instead of linking out to Blocket)\n- An online valuation/booking form that emails the dealership\n- A financing calculator\n- Individual car detail pages with photos and specifications',8),
   -- Helpdesk AI
   ('sentinel-helpdesk-ai','problem','Problem','Small businesses lose time and customers because messages are scattered across email, web forms, Instagram and phone notes — answered late, forgotten, or handled without a clear status. I wanted a single place that captures every message as a tracked ticket so nothing slips through the cracks.',1),
   ('sentinel-helpdesk-ai','solution','Solution','Sentinel captures each message as a ticket, uses AI to summarise the problem and assign a priority, category and sentiment, and drafts a professional reply the owner reviews and approves before it is sent. A clear status workflow keeps everything moving. It runs in a demo mode with no keys required, and uses real providers when configured.',2),
