@@ -21,7 +21,9 @@ values (
   'I''m a newly graduated engineer from Jönköping University with a BSc in Network, Infrastructure and Cybersecurity. I''m tech-focused and service-oriented, with hands-on experience troubleshooting technical problems and supporting users directly at a high tempo — structured, and comfortable juggling several tickets at once without losing quality. I''m based in Jönköping, Sweden, fluent in Swedish, English and Arabic, and motivated to keep growing in IT, infrastructure and cybersecurity. I learn by building, so I ship and document real projects.',
   'Jönköping, Sweden',
   'mohammadhalabi777@gmail.com',
-  null, null, null
+  'https://github.com/Rsaas762',
+  'https://www.linkedin.com/in/mohamed-elhalabi-04296a205',
+  'https://sentinel-portfolioos.vercel.app'
 );
 
 insert into site_settings (id, hero_kicker, hero_title, hero_subtitle, hero_cta_label, available_for_work, ai_assistant_enabled, contact_email)

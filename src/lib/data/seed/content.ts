@@ -14,9 +14,9 @@ export const SEED_PROFILE: Profile = {
   bio: "I'm a newly graduated engineer from Jönköping University with a BSc in Network, Infrastructure and Cybersecurity. I'm tech-focused and service-oriented, with hands-on experience troubleshooting technical problems and supporting users directly at a high tempo — structured, and comfortable juggling several tickets at once without losing quality. I'm based in Jönköping, Sweden, fluent in Swedish, English and Arabic, and motivated to keep growing in IT, infrastructure and cybersecurity. I learn by building, so I ship and document real projects.",
   location: "Jönköping, Sweden",
   email: "mohammadhalabi777@gmail.com",
-  github_url: null,
-  linkedin_url: null,
-  website_url: null,
+  github_url: "https://github.com/Rsaas762",
+  linkedin_url: "https://www.linkedin.com/in/mohamed-elhalabi-04296a205",
+  website_url: "https://sentinel-portfolioos.vercel.app",
   avatar_url: null,
 };
 
