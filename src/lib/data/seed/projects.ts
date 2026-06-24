@@ -306,7 +306,7 @@ export const SEED_PROJECTS: Project[] = [
       "Anthropic API",
     ],
     screenshots: [],
-    github_url: null,
+    github_url: "https://github.com/Rsaas762/sentinel-portfolioos",
     demo_url: "https://sentinel-portfolioos.vercel.app",
     cover_image: null,
     featured: true,
