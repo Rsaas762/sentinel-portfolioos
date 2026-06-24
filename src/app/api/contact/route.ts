@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { contactSchema } from "@/lib/validation/contact";
 import { hashIp, rateLimit } from "@/lib/rate-limit";
 import { getRepo, isDemoMode } from "@/lib/data";
+import { sendContactNotification } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   // Derive a client identifier for rate limiting (proxy-aware, best effort).
@@ -54,6 +55,21 @@ export async function POST(request: NextRequest) {
       { ok: false, error: "Could not send your message. Please try later." },
       { status: 500 },
     );
+  }
+
+  // Best-effort email notification — the message is already stored, so we
+  // never fail the request if email delivery is unavailable.
+  try {
+    const settings = await getRepo().getSettings();
+    await sendContactNotification({
+      name,
+      email,
+      subject: subject ?? "",
+      message,
+      to: settings.contact_email,
+    });
+  } catch {
+    /* ignore notification failures */
   }
 
   return NextResponse.json({ ok: true, demo: isDemoMode() });
