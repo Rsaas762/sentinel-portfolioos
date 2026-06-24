@@ -296,3 +296,25 @@ create policy "auth update messages" on contact_messages
 -- Audit logs: authenticated read only (writes happen via the trigger) -------
 create policy "auth read audit" on audit_logs
   for select using (auth.role() = 'authenticated');
+
+-- ---------------------------------------------------------------------------
+-- Role grants (Supabase default model)
+-- ---------------------------------------------------------------------------
+-- RLS (enabled above) is the real gate; these grants restore the table/role
+-- privileges Supabase normally sets up. They matter if you ever reset the
+-- `public` schema. Guarded so the script still runs on plain Postgres.
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant usage on schema public to anon, authenticated, service_role;
+    grant all on all tables in schema public to anon, authenticated, service_role;
+    grant all on all sequences in schema public to anon, authenticated, service_role;
+    grant all on all routines in schema public to anon, authenticated, service_role;
+    alter default privileges in schema public
+      grant all on tables to anon, authenticated, service_role;
+    alter default privileges in schema public
+      grant all on sequences to anon, authenticated, service_role;
+    alter default privileges in schema public
+      grant all on routines to anon, authenticated, service_role;
+  end if;
+end $$;

@@ -164,16 +164,24 @@ export class SupabaseRepo implements PortfolioRepo {
     message: string;
     ip_hash: string | null;
   }) {
-    // Public insert under the anon-insert RLS policy.
-    const { data, error } = await anon()
+    // Public insert under the anon-insert RLS policy. We intentionally do NOT
+    // read the row back — anon has no SELECT policy on contact_messages, so a
+    // returning-select would fail RLS. The caller only needs success/failure.
+    const { error } = await anon()
       .from("contact_messages")
-      .insert({ ...input, status: "new" })
-      .select("*")
-      .single();
+      .insert({ ...input, status: "new" });
 
     if (error) {
       return { ok: false as const, error: error.message };
     }
-    return { ok: true as const, data: data as ContactMessage };
+    return {
+      ok: true as const,
+      data: {
+        id: "",
+        ...input,
+        status: "new",
+        created_at: new Date().toISOString(),
+      } as ContactMessage,
+    };
   }
 }
