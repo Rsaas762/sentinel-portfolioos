@@ -26,7 +26,7 @@ export const SEED_SETTINGS: SiteSettings = {
   hero_subtitle:
     "I'm Mohamed — a Network, Infrastructure & Cybersecurity graduate from Jönköping University. I learn by building: secure web apps, IT-support tooling, and networking labs, each documented as an honest case study.",
   hero_cta_label: "View my projects",
-  cv_url: null,
+  cv_url: "/Mohamed_Elhalabi_CV.pdf",
   available_for_work: true,
   ai_assistant_enabled: true,
   contact_email: "mohammadhalabi777@gmail.com",
