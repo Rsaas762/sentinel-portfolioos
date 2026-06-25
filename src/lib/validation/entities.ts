@@ -22,8 +22,11 @@ const checkbox = z.preprocess(
 const optionalUrl = z
   .string()
   .trim()
-  .url("Enter a valid URL (including https://).")
   .max(500)
+  .refine(
+    (v) => v === "" || v.startsWith("/") || z.string().url().safeParse(v).success,
+    "Enter a valid URL (https://…) or a root-relative path (/file.pdf).",
+  )
   .optional()
   .or(z.literal(""));
 
