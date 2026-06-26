@@ -45,22 +45,26 @@ insert into projects (slug, title, short_description, scope, category, status, d
   array['React','Vite','TypeScript','Tailwind CSS','Vercel'],
   array['/screenshots/svenljunga-bilcenter/home-desktop.jpg','/screenshots/svenljunga-bilcenter/services-desktop.jpg','/screenshots/svenljunga-bilcenter/home-mobile.jpg'],
   null,'https://svenljunga-bilcenter.vercel.app/',true,0,'2026-04-10','2026-06-22'),
+('sentinel-core','Sentinel Core — AI Command Center','A personal, multi-model AI command center for security work: one chat that auto-routes between Claude and GPT, a Forge that generates copy-ready artifacts, and an agentic Cyber Range operator.','Personal project','cybersecurity','live','advanced',
+  array['TypeScript','Node.js','Anthropic Claude API','OpenAI API','Railway'],
+  array['/screenshots/sentinel-core/command-center.jpg','/screenshots/sentinel-core/landing.jpg'],
+  null,'https://sentinel-core-production.up.railway.app/',true,1,'2026-05-20','2026-06-26'),
 ('sentinel-helpdesk-ai','Sentinel Helpdesk AI','A secure, AI-assisted support-ticket platform for small businesses: capture every message, summarise it, and draft a reply the owner approves.','Portfolio project (MVP)','full_stack','live','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Resend','Anthropic / OpenAI'],
   array['/screenshots/sentinel-helpdesk-ai/dashboard.png','/screenshots/sentinel-helpdesk-ai/tickets-list.png','/screenshots/sentinel-helpdesk-ai/ticket-detail.png','/screenshots/sentinel-helpdesk-ai/reply-composer.png'],
-  null,null,true,1,'2025-11-02','2026-06-10'),
+  null,null,true,2,'2025-11-02','2026-06-10'),
 ('sentinel-webguard','Sentinel WebGuard','A safe, passive website trust, security-header, email-DNS and GDPR-readiness checkup that turns public signals into a 0–100 score with plain-language fixes.','Portfolio project (MVP)','cybersecurity','in_progress','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Node.js','Zod'],
   array[]::text[],
-  null,null,true,2,'2026-01-12','2026-06-12'),
+  null,null,true,3,'2026-01-12','2026-06-12'),
 ('sentinel-portfolioos','Sentinel PortfolioOS','The portfolio platform you''re reading now — a public case-study site plus a private admin CMS, built to run with zero config and upgrade to a live database.','Portfolio project (this site)','full_stack','live','advanced',
   array['Next.js','TypeScript','Tailwind CSS','Supabase','PostgreSQL','Zod','Anthropic API'],
   array[]::text[],
-  'https://github.com/Rsaas762/sentinel-portfolioos','https://sentinel-portfolioos.vercel.app',true,3,'2026-03-01','2026-06-20'),
+  'https://github.com/Rsaas762/sentinel-portfolioos','https://sentinel-portfolioos.vercel.app',true,4,'2026-03-01','2026-06-20'),
 ('networking-infrastructure-labs','Networking & Infrastructure Labs','University coursework designing, configuring and troubleshooting networks and IT infrastructure with Cisco Packet Tracer and virtualised Windows/Linux hosts.','University coursework','infrastructure','completed','intermediate',
   array['Cisco Packet Tracer','Cisco IOS','VLANs','Routing & Switching','Windows Server','Linux','VirtualBox'],
   array[]::text[],
-  null,null,false,4,'2024-02-01','2025-12-01');
+  null,null,false,5,'2024-02-01','2025-12-01');
 
 -- ---------------------------------------------------------------------------
 -- Project sections (linked by slug)
@@ -78,6 +82,15 @@ join (values
   ('svenljunga-bilcenter','learned','What I learned','This was a real client project, about to be handed over to the dealership owner. The biggest lesson was translating a non-technical owner''s goals — look trustworthy, get more valuations and calls — into concrete design and copy decisions, and keeping the site simple enough for the business to rely on.',6),
   ('svenljunga-bilcenter','screenshots','Screenshots','From the live site — the desktop home, the services section, and the mobile layout.',7),
   ('svenljunga-bilcenter','future','Future improvements',E'- Live inventory on the site itself (instead of linking out to Blocket)\n- An online valuation/booking form that emails the dealership\n- A financing calculator\n- Individual car detail pages with photos and specifications',8),
+  -- Sentinel Core (AI command center)
+  ('sentinel-core','problem','Problem','Security and engineering work means constantly switching tools: one model is better at reasoning about a config, another is faster at generating code, and routine tasks (audit this nginx file, draft a GDPR DPIA, parse these logs) get retyped from scratch every time. I wanted a single workspace that picks the right model for each request, turns common security tasks into one click, and keeps everything in one calm, fast interface I actually trust.',1),
+  ('sentinel-core','solution','Solution','Sentinel Core is a personal AI command center. A single chat auto-routes each message to the best available model — Claude for security and reasoning, GPT for fast code generation — and shows the routing decision so it''s never a black box. "Forge" turns a plain-English request into a complete, copy-ready artifact (a script, config, component, or checklist) that nothing writes to disk — I review and apply it myself. A "Cyber Range" gives an agentic operator an objective to investigate inside an isolated sandbox. It runs five models side by side and ships as a polished, single-purpose tool.',2),
+  ('sentinel-core','tech','How it''s built','A TypeScript web app with a Node.js backend that proxies the Anthropic and OpenAI APIs so keys never reach the browser. The router scores each request and selects a model; the UI streams responses and surfaces the live model roster and routing log. It''s deployed on Railway as a production service, gated behind an access token.',3),
+  ('sentinel-core','features','Key features',E'- Multi-model chat across five models (Claude Opus 4.8, Sonnet 4.6, Haiku 4.5, and two GPT models)\n- Automatic routing — Claude for security & reasoning, GPT for fast code-gen — with a transparent decision log\n- Forge: generates complete, copy-ready artifacts (Python, Bash, nginx, YAML, TypeScript, components, configs, checklists) that are never written to disk\n- Cyber Range: an agentic operator that investigates an objective inside an isolated sandbox, with an alert and event timeline\n- Quick-start security tasks (audit an nginx config, VLAN/Cisco lab, TLS handshake, GDPR DPIA, log parsing)\n- Conversation history kept locally on the device only',4),
+  ('sentinel-core','security','Security considerations','Because it''s a tool that talks to powerful models, I designed it to fail safe. API keys stay server-side and are never exposed to the client; access is gated behind a token. Forge deliberately writes nothing to disk — every artifact is reviewed and applied by me, so the model can''t silently change my system. The agentic operator is scoped to an isolated range rather than my real machine. History is stored locally, not in a shared database. These are honest, sensible boundaries for a personal tool — not a hardened, audited production security product.',5),
+  ('sentinel-core','learned','What I learned','Orchestrating several model providers behind one interface taught me a lot about prompt routing, streaming, and graceful fallback when a provider is slow or unavailable. The hardest and most valuable part was the safety design: deciding what an AI tool should and shouldn''t be allowed to touch, and making "review before apply" the default rather than an afterthought.',6),
+  ('sentinel-core','screenshots','Screenshots','The command center — the model roster, auto-routing chat, and quick-start security tasks — and the launch screen.',7),
+  ('sentinel-core','future','Future improvements',E'- Saved, named workspaces and exportable transcripts\n- A pluggable tool/function layer for the Cyber Range operator\n- Cost and latency awareness in the router, not just capability\n- Optional team mode with shared (encrypted) history\n- More built-in security task templates',8),
   -- Helpdesk AI
   ('sentinel-helpdesk-ai','problem','Problem','Small businesses lose time and customers because messages are scattered across email, web forms, Instagram and phone notes — answered late, forgotten, or handled without a clear status. I wanted a single place that captures every message as a tracked ticket so nothing slips through the cracks.',1),
   ('sentinel-helpdesk-ai','solution','Solution','Sentinel captures each message as a ticket, uses AI to summarise the problem and assign a priority, category and sentiment, and drafts a professional reply the owner reviews and approves before it is sent. A clear status workflow keeps everything moving. It runs in a demo mode with no keys required, and uses real providers when configured.',2),
