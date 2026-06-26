@@ -18,14 +18,14 @@ export function TechChips({
       {shown.map((tech) => (
         <span
           key={tech}
-          className="rounded-md border bg-muted/50 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
+          className="rounded border border-border/80 bg-muted/40 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
         >
           {tech}
         </span>
       ))}
       {extra > 0 ? (
-        <span className="px-1 py-0.5 font-mono text-[11px] text-muted-foreground">
-          +{extra}
+        <span className="px-1 py-0.5 font-mono text-[11px] text-muted-foreground/80">
+          +{extra} more
         </span>
       ) : null}
     </div>

@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { Poppins, Roboto, Inconsolata } from "next/font/google";
+import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-// Body / UI text
-const roboto = Roboto({
-  variable: "--font-roboto",
+// Body / UI text — technical, mature, highly legible (not Inter/Roboto).
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-// Display / headings
-const poppins = Poppins({
-  variable: "--font-poppins",
+// Display / editorial headlines — characterful serif with optical sizing.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
   display: "swap",
+  axes: ["opsz", "SOFT"],
 });
 
-// Label-caps / mono
-const inconsolata = Inconsolata({
-  variable: "--font-inconsolata",
+// System labels / terminal metadata.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -31,32 +32,33 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Sentinel PortfolioOS — Turn projects into proof",
-    template: "%s · Sentinel PortfolioOS",
+    default: "Mohamed Elhalabi — Cybersecurity & Full-Stack Engineer",
+    template: "%s · Mohamed Elhalabi",
   },
   description:
-    "A portfolio operating system for cybersecurity and full-stack engineers. Polished case studies, verifiable skills, and a private admin dashboard.",
+    "Network, Infrastructure & Cybersecurity graduate from Jönköping, Sweden. I learn by building — secure web apps, IT-support tooling, and networking labs, each documented as an honest case study.",
   keywords: [
-    "portfolio",
+    "Mohamed Elhalabi",
     "cybersecurity",
-    "full-stack",
-    "case studies",
+    "full-stack developer",
+    "network infrastructure",
+    "Jönköping",
     "Next.js",
-    "developer portfolio",
+    "case studies",
   ],
-  authors: [{ name: "Sentinel PortfolioOS" }],
+  authors: [{ name: "Mohamed Elhalabi" }],
   openGraph: {
-    title: "Sentinel PortfolioOS — Turn projects into proof",
+    title: "Mohamed Elhalabi — Cybersecurity & Full-Stack Engineer",
     description:
-      "A portfolio operating system for cybersecurity and full-stack engineers.",
+      "Security-minded engineer who learns by building. Honest, end-to-end project case studies.",
     url: siteUrl,
-    siteName: "Sentinel PortfolioOS",
+    siteName: "Mohamed Elhalabi",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sentinel PortfolioOS",
-    description: "Turn projects into proof.",
+    title: "Mohamed Elhalabi — Cybersecurity & Full-Stack",
+    description: "Security-minded engineer who learns by building.",
   },
 };
 
@@ -81,7 +83,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${roboto.variable} ${poppins.variable} ${inconsolata.variable} h-full antialiased`}
+      className={`${plexSans.variable} ${fraunces.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

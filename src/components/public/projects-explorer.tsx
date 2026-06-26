@@ -21,7 +21,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
+      <div className="mb-10 flex flex-wrap justify-center gap-x-1 gap-y-2">
         <FilterChip
           label={`All (${projects.length})`}
           active={active === "all"}
@@ -43,8 +43,8 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
         </p>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+          {filtered.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
       )}
@@ -67,10 +67,10 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "relative rounded-md px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.1em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         active
-          ? "border-primary bg-primary text-primary-foreground"
-          : "text-muted-foreground hover:text-foreground",
+          ? "bg-foreground text-background"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground",
       )}
     >
       {label}

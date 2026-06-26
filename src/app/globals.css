@@ -4,84 +4,98 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Sentinel PortfolioOS — TypeUI "Clean" design direction.
-  Minimal, SaaS-like: ample whitespace, legible type, a limited palette,
-  a calm professional blue accent, and tight (4/8px) radii on an 8pt grid.
-  Light + dark themes via `.dark` class on <html>.
+  Sentinel PortfolioOS — "Operator's dossier" design direction.
+  An editorial security portfolio: warm off-white paper, deep navy structural
+  surfaces, graphite text, and a single sharp azure accent. Fraunces (display
+  serif) + IBM Plex Sans (UI) + IBM Plex Mono (system labels). Hairline grids
+  and terminal metadata give it a calm, technical, cybersecurity-inspired feel
+  without the hacker-movie clichés. Light + dark via `.dark` on <html>.
 */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  /* Warm paper, not pure white */
+  --background: 40 33% 98%;
+  --foreground: 216 42% 13%;
 
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card: 40 45% 99%;
+  --card-foreground: 216 42% 13%;
 
-  --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
+  --popover: 40 45% 99%;
+  --popover-foreground: 216 42% 13%;
 
-  /* Calm professional blue (#3B82F6) */
-  --primary: 217 91% 60%;
+  /* Sharp azure — the single accent (signal, not danger) */
+  --primary: 204 86% 41%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 220 14% 96%;
-  --secondary-foreground: 222 47% 11%;
+  --secondary: 214 30% 93%;
+  --secondary-foreground: 216 42% 16%;
 
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 43%;
+  --muted: 214 28% 95%;
+  --muted-foreground: 215 16% 42%;
 
-  --accent: 214 100% 97%;
-  --accent-foreground: 221 83% 45%;
+  --accent: 202 80% 95%;
+  --accent-foreground: 204 86% 32%;
 
-  --destructive: 0 72% 48%;
+  --destructive: 2 74% 48%;
   --destructive-foreground: 0 0% 100%;
 
-  --success: 142 71% 38%;
-  --warning: 32 94% 40%;
+  --success: 152 58% 35%;
+  --warning: 34 92% 40%;
 
-  --border: 220 13% 91%;
-  --input: 220 13% 89%;
-  --ring: 217 91% 60%;
+  --border: 214 22% 88%;
+  --input: 214 22% 84%;
+  --ring: 204 86% 41%;
 
-  /* Single tasteful accent for the logo "proof" spark */
-  --brand-emerald: 142 64% 40%;
+  /* Deep navy structural surfaces (hero accent panel, footer, callouts) */
+  --navy: 216 52% 9%;
+  --navy-foreground: 210 28% 90%;
+  --navy-muted: 212 16% 62%;
+  --navy-border: 213 28% 22%;
 
-  /* Clean radii: 8px base, 6px md, 4px sm */
+  /* Logo "signal" spark — unified with the accent */
+  --brand-emerald: 199 89% 48%;
+
+  /* Crisp, slightly squared radii */
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: 222 47% 9%;
-  --foreground: 210 40% 96%;
+  --background: 216 50% 8%;
+  --foreground: 210 30% 92%;
 
-  --card: 222 41% 12%;
-  --card-foreground: 210 40% 96%;
+  --card: 216 42% 11%;
+  --card-foreground: 210 30% 92%;
 
-  --popover: 222 41% 11%;
-  --popover-foreground: 210 40% 96%;
+  --popover: 216 44% 10%;
+  --popover-foreground: 210 30% 92%;
 
-  --primary: 213 94% 68%;
-  --primary-foreground: 222 47% 11%;
+  --primary: 200 92% 56%;
+  --primary-foreground: 216 56% 9%;
 
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 96%;
+  --secondary: 214 28% 17%;
+  --secondary-foreground: 210 30% 90%;
 
-  --muted: 217 33% 16%;
-  --muted-foreground: 215 18% 65%;
+  --muted: 214 26% 15%;
+  --muted-foreground: 214 16% 64%;
 
-  --accent: 217 50% 20%;
-  --accent-foreground: 213 94% 82%;
+  --accent: 204 56% 18%;
+  --accent-foreground: 200 90% 78%;
 
-  --destructive: 0 70% 55%;
+  --destructive: 2 70% 56%;
   --destructive-foreground: 0 0% 100%;
 
-  --success: 142 64% 50%;
-  --warning: 32 94% 56%;
+  --success: 152 52% 50%;
+  --warning: 34 92% 58%;
 
-  --border: 217 30% 22%;
-  --input: 217 30% 24%;
-  --ring: 213 94% 68%;
+  --border: 213 26% 20%;
+  --input: 213 26% 23%;
+  --ring: 200 92% 56%;
 
-  --brand-emerald: 142 64% 52%;
+  --navy: 216 56% 6%;
+  --navy-foreground: 210 28% 90%;
+  --navy-muted: 212 15% 60%;
+  --navy-border: 213 24% 17%;
+
+  --brand-emerald: 199 90% 56%;
 }
 
 @theme inline {
@@ -106,11 +120,16 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+
+  --color-navy: hsl(var(--navy));
+  --color-navy-foreground: hsl(var(--navy-foreground));
+  --color-navy-muted: hsl(var(--navy-muted));
+  --color-navy-border: hsl(var(--navy-border));
   --color-brand-emerald: hsl(var(--brand-emerald));
 
-  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-inconsolata), ui-monospace, "SF Mono", monospace;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -133,26 +152,95 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Clean typography: display font for headings, tightened tracking */
+/* Crisp UI headings by default; editorial serif is opt-in via .font-display */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.012em;
+}
+
+.font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.011em;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  font-weight: 480;
 }
 
 ::selection {
-  background: hsl(var(--primary) / 0.18);
+  background: hsl(var(--primary) / 0.2);
 }
 
-/* Subtle entrance — kept minimal */
+/* ── System label: terminal-style mono caps ───────────────────────────── */
+.system-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── Hairline grid texture (cybersecurity-inspired, restrained) ────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      hsl(var(--foreground) / 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      hsl(var(--foreground) / 0.04) 1px,
+      transparent 1px
+    );
+  background-size: 60px 60px;
+}
+
+.bg-grid-navy {
+  background-image:
+    linear-gradient(
+      to right,
+      hsl(var(--navy-foreground) / 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      hsl(var(--navy-foreground) / 0.06) 1px,
+      transparent 1px
+    );
+  background-size: 60px 60px;
+}
+
+/* Soft radial fade to keep grids from reaching hard edges */
+.grid-fade {
+  -webkit-mask-image: radial-gradient(
+    120% 100% at 50% 0%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(120% 100% at 50% 0%, #000 55%, transparent 100%);
+}
+
+/* ── Animated link underline ──────────────────────────────────────────── */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+/* ── Entrances ────────────────────────────────────────────────────────── */
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -161,7 +249,26 @@ h6 {
 }
 
 .animate-fade-up {
-  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Staggered reveal: set style={{'--i': n}} on children of a .reveal group */
+.reveal > * {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-fade-up,
+  .reveal > * {
+    animation: none;
+  }
+  .link-underline {
+    transition: none;
+  }
 }
 
 /* Print: hide chrome on CV page */

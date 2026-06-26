@@ -12,15 +12,22 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("mx-auto max-w-3xl text-center", className)}>
+    <div className={cn("mx-auto max-w-2xl text-center", className)}>
       {kicker ? (
-        <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
+        <p className="system-label mb-4 inline-flex items-center gap-2 text-primary">
+          <span aria-hidden className="text-muted-foreground/60">
+            {"//"}
+          </span>
           {kicker}
         </p>
       ) : null}
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+      <h1 className="font-display text-balance text-4xl leading-[1.05] sm:text-5xl">
+        {title}
+      </h1>
       {description ? (
-        <p className="mt-4 text-balance text-muted-foreground">{description}</p>
+        <p className="mx-auto mt-5 max-w-xl text-balance leading-relaxed text-muted-foreground">
+          {description}
+        </p>
       ) : null}
     </div>
   );

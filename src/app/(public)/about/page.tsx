@@ -69,15 +69,15 @@ export default async function AboutPage() {
 
       {/* Values */}
       <section className="mt-16">
-        <h2 className="mb-6 text-center text-xl font-semibold tracking-tight">
-          How I work
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <p className="system-label mb-6 text-primary">{"// how I work"}</p>
+        <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
           {VALUES.map(({ Icon, title, body }) => (
-            <div key={title} className="rounded-lg border bg-card p-5">
+            <div key={title} className="border-t-2 border-primary/30 pt-5">
               <Icon className="size-5 text-primary" />
               <h3 className="mt-3 font-semibold">{title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{body}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                {body}
+              </p>
             </div>
           ))}
         </div>
@@ -85,17 +85,14 @@ export default async function AboutPage() {
 
       {/* Languages */}
       <section className="mt-16">
-        <h2 className="mb-6 flex items-center justify-center gap-2 text-xl font-semibold tracking-tight">
-          <LanguagesIcon className="size-5 text-primary" /> Languages
-        </h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <p className="system-label mb-6 inline-flex items-center gap-2 text-primary">
+          <LanguagesIcon className="size-3.5" /> languages
+        </p>
+        <div className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {SEED_LANGUAGES.map((lang) => (
-            <div
-              key={lang.name}
-              className="rounded-lg border bg-card p-4 text-center"
-            >
+            <div key={lang.name} className="bg-card p-4 text-center">
               <p className="font-medium">{lang.name}</p>
-              <p className="mt-0.5 text-sm text-muted-foreground">
+              <p className="mt-0.5 font-mono text-xs text-muted-foreground">
                 {lang.level}
               </p>
             </div>
@@ -104,11 +101,9 @@ export default async function AboutPage() {
       </section>
 
       {/* CV-ready summary */}
-      <section className="mt-16 rounded-xl border bg-muted/30 p-6 sm:p-8">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-          CV-ready summary
-        </p>
-        <p className="mt-3 text-pretty leading-relaxed">
+      <section className="mt-16 overflow-hidden rounded-xl border border-navy-border bg-navy p-6 text-navy-foreground sm:p-8">
+        <p className="system-label text-primary">CV-ready summary</p>
+        <p className="mt-3 text-pretty leading-relaxed text-navy-foreground/90">
           Network, Infrastructure & Cybersecurity graduate (BSc, Jönköping
           University) who learns by building. Hands-on with IT support,
           networking (Cisco routing &amp; switching, VLANs), and Windows/Linux
@@ -122,7 +117,12 @@ export default async function AboutPage() {
           <Button asChild size="sm">
             <Link href="/cv">View full CV</Link>
           </Button>
-          <Button asChild size="sm" variant="outline">
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="border-navy-border bg-transparent text-navy-foreground hover:border-primary/50 hover:bg-white/[0.04] hover:text-navy-foreground"
+          >
             <Link href="/projects">See the projects</Link>
           </Button>
         </div>
@@ -131,9 +131,9 @@ export default async function AboutPage() {
       {/* Testimonials */}
       {testimonials.length > 0 ? (
         <section className="mt-16">
-          <h2 className="mb-6 text-center text-xl font-semibold tracking-tight">
-            What others say
-          </h2>
+          <p className="system-label mb-6 text-primary">
+            {"// what others say"}
+          </p>
           <div className="grid gap-4 sm:grid-cols-2">
             {testimonials.map((t) => (
               <figure key={t.id} className="rounded-lg border bg-card p-5">
