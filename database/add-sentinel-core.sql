@@ -22,7 +22,7 @@ values
    'A personal, multi-model AI command center for security work: one chat that auto-routes between Claude and GPT, a Forge that generates copy-ready artifacts, and an agentic Cyber Range operator.',
    'Personal project', 'cybersecurity', 'live', 'advanced',
    array['TypeScript','Node.js','Anthropic Claude API','OpenAI API','Railway'],
-   array['/screenshots/sentinel-core/command-center.jpg','/screenshots/sentinel-core/landing.jpg'],
+   array['/screenshots/sentinel-core/landing.jpg','/screenshots/sentinel-core/command-center.jpg'],
    null, 'https://sentinel-core-production.up.railway.app/', true, 1,
    '2026-05-20', '2026-06-26');
 
@@ -43,7 +43,7 @@ join (values
   ('sentinel-core','features','Key features',E'- Multi-model chat across five models (Claude Opus 4.8, Sonnet 4.6, Haiku 4.5, and two GPT models)\n- Automatic routing — Claude for security & reasoning, GPT for fast code-gen — with a transparent decision log\n- Forge: generates complete, copy-ready artifacts (Python, Bash, nginx, YAML, TypeScript, components, configs, checklists) that are never written to disk\n- Cyber Range: an agentic operator that investigates an objective inside an isolated sandbox, with an alert and event timeline\n- Quick-start security tasks (audit an nginx config, VLAN/Cisco lab, TLS handshake, GDPR DPIA, log parsing)\n- Conversation history kept locally on the device only',4),
   ('sentinel-core','security','Security considerations','Because it''s a tool that talks to powerful models, I designed it to fail safe. API keys stay server-side and are never exposed to the client; access is gated behind a token. Forge deliberately writes nothing to disk — every artifact is reviewed and applied by me, so the model can''t silently change my system. The agentic operator is scoped to an isolated range rather than my real machine. History is stored locally, not in a shared database. These are honest, sensible boundaries for a personal tool — not a hardened, audited production security product.',5),
   ('sentinel-core','learned','What I learned','Orchestrating several model providers behind one interface taught me a lot about prompt routing, streaming, and graceful fallback when a provider is slow or unavailable. The hardest and most valuable part was the safety design: deciding what an AI tool should and shouldn''t be allowed to touch, and making "review before apply" the default rather than an afterthought.',6),
-  ('sentinel-core','screenshots','Screenshots','The command center — the model roster, auto-routing chat, and quick-start security tasks — and the launch screen.',7),
+  ('sentinel-core','screenshots','Screenshots','The launch screen, and the command center — the model roster, auto-routing chat, and quick-start security tasks.',7),
   ('sentinel-core','future','Future improvements',E'- Saved, named workspaces and exportable transcripts\n- A pluggable tool/function layer for the Cyber Range operator\n- Cost and latency awareness in the router, not just capability\n- Optional team mode with shared (encrypted) history\n- More built-in security task templates',8)
 ) as v(slug, kind, heading, body, sort_order) on v.slug = p.slug;
 

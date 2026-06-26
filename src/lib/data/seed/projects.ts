@@ -118,8 +118,8 @@ export const SEED_PROJECTS: Project[] = [
       "Railway",
     ],
     screenshots: [
-      "/screenshots/sentinel-core/command-center.jpg",
       "/screenshots/sentinel-core/landing.jpg",
+      "/screenshots/sentinel-core/command-center.jpg",
     ],
     github_url: null,
     demo_url: "https://sentinel-core-production.up.railway.app/",
@@ -182,7 +182,7 @@ export const SEED_PROJECTS: Project[] = [
         project_id: "prj-sentinel-core",
         kind: "screenshots",
         heading: "Screenshots",
-        body: "The command center — the model roster, auto-routing chat, and quick-start security tasks — and the launch screen.",
+        body: "The launch screen, and the command center — the model roster, auto-routing chat, and quick-start security tasks.",
         sort_order: 7,
       },
       {
